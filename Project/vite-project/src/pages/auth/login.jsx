@@ -17,7 +17,7 @@ function Login() {
     axios.defaults.withCredentials = true;
   const handleClick = (e) => {
     e.preventDefault()
-    axios.post('https://new-server-cvbw.onrender.com/auth/login',{email,password},)
+    axios.post('https://working-art-gallery-server.onrender.com/auth/login',{email,password},)
     .then(res=>{
         if(res.status === 200){
             localStorage.setItem('user', JSON.stringify(res.data))

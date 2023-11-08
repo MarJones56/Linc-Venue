@@ -19,7 +19,7 @@ function Messenger(){
     useEffect(() =>{    
         const getConversations = async ()=>{
             try{
-                const res = await axios.get("https://new-server-cvbw.onrender.com/conversation/" + user._id)
+                const res = await axios.get("https://working-art-gallery-server.onrender.com/conversation/" + user._id)
                 setConversations(res.data);
             }catch(err){
                 console.log(err)    
@@ -32,7 +32,7 @@ function Messenger(){
     useEffect(() =>{
         const getMessages = async () => {
             try{
-                const res = await axios.get("https://new-server-cvbw.onrender.com/messages/" + currentChat?._id);
+                const res = await axios.get("https://working-art-gallery-server.onrender.com/messages/" + currentChat?._id);
                 setMessages(res.data);
             }
             catch (err){
@@ -52,7 +52,7 @@ function Messenger(){
         };
 
         try{
-            const res = await axios.post("https://new-server-cvbw.onrender.com/messages", messageObj);
+            const res = await axios.post("https://working-art-gallery-server.onrender.com/messages", messageObj);
             setMessages([...message, res.data])
             setNewMessage("")
         }catch (err){
