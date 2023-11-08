@@ -8,6 +8,7 @@ import Forgot from "./pages/forgot";
 import VenueDashboard from "./pages/VenueDashboard";
 import UserFilter from "./pages/UserFilter";
 import Messenger from "./pages/messenger";
+import LogOut from "./pages/auth/logout"
 
 
 function App() {
@@ -24,8 +25,7 @@ function App() {
         <Route path="/venuedashboard" element={<VenueDashboard/>}></Route>
         <Route path="/UserFilter" element={<UserFilter/>}></Route>
         <Route path="/messenger" element={<Messenger/>}></Route>
-        
-        
+        <Route path="/logout" element={<LogOut/>}></Route>
       </Routes>
        
       

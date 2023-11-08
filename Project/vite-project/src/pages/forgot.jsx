@@ -13,7 +13,7 @@ function Forgot() {
     axios.defaults.withCredentials = true;
     const handleSubmit=(e)=>{
         e.preventDefault()
-        axios.post('http://localhost:8800/forgot',{email})
+        axios.post('https://new-server-cvbw.onrender.com/forgot',{email})
         .then(res=>{
             if(res.data.Status==="Success"){
                 if(res.data.role==="user"){
