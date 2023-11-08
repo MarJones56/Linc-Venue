@@ -13,7 +13,7 @@ export default function Dashboard() {
                     setSearchResult([])
                     return
                 }
-                const res = await axios.get('http://localhost:8800/Dashboard', {params: {key: key, limit: 5}})
+                const res = await axios.get('https://new-server-cvbw.onrender.com/Dashboard', {params: {key: key, limit: 5}})
                 setSearchResult(res.data.data)
                 console.log(res)
             } catch (error) {

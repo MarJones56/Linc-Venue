@@ -13,7 +13,7 @@ const bcrypt = require('bcrypt');
 dotenv.config();
 
 try{
-  mongoose.connect('mongodb+srv://marjone:zXos4wbdyccOFdBQ@artgalleryms.nvqiqhm.mongodb.net/?retryWrites=true&w=majority&appName=AtlasApp')
+  mongoose.connect(process.env.MONGO_URL)
   console.log("Connected to MongoDB")
 } catch (err){
   console.log(err);
@@ -22,7 +22,7 @@ try{
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin:["http://localhost:5173"],
+    origin:[process.env.ORIGIN],
     methods:["GET","POST"],
     credentials:true
 }))
@@ -42,6 +42,6 @@ app.use('/messages', require('./routes/messages'))
 app.use('/user', require('./routes/user'))
 
 
-app.listen(5000, () => {
+app.listen(process.env.PORT, () => {
     console.log("Backend Server Is Running Properly")
 });
