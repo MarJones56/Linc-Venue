@@ -17,7 +17,7 @@ export default function Dashboard() {
     //                 setSearchResult([])
     //                 return
     //             }
-    //             const res = await axios.get('http://localhost:5000/Dashboard', {params: {key: key, limit: 5}})
+    //             const res = await axios.get('https://working-art-gallery-server.onrender.com/Dashboard', {params: {key: key, limit: 5}})
     //             setSearchResult(res.data.data)
     //             console.log(res)
     //         } catch (error) {
