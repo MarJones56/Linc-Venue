@@ -145,9 +145,20 @@ input[type="radio"] {
     padding: 1.25rem
 }
 
+.card-body .profileBanner{
+  height: 250px;
+  width: 100% - 250px;
+  position: relative;
+}
+
+.card-body .profilePic{
+  position: absolute;
+}
+
 .pro-img {
     margin-top: -80px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    position: absolute;
 }
 
 .little-profile .pro-img img {
@@ -441,4 +452,20 @@ ul li a:hover::after{
   text-align: center;
   cursor: default;
 
+} 
+
+dialog{
+  height: 500px;
+  width: 1000px;
+  object-position: 100%;
+  z-index: 10;
+}
+
+dialog input{
+  width: 100%;
+}
+
+.card-body .profilepic{
+  height: 250px;
+  width: 250px;
 }
