@@ -60,6 +60,22 @@ const UserSchema = new mongoose.Schema({
         max: 200,
     },
 
+    phoneNumber: {
+        type: Number,
+        min: 1000000000,
+        max: 9999999999,
+    },
+
+    location: {
+        type: String,
+        max: 50,
+    },
+
+    profileBio: {
+        type: String,
+        max: 200,
+    },
+
     isAdmin: {
         type: Boolean,
         default: false,
