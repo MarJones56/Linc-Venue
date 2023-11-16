@@ -1,17 +1,11 @@
 import { useState, useEffect } from "react";
-import axios from 'axios'
+import axios from 'axios';
 import Header from "./components/Header";
 
-
-
 export default function Dashboard() {
-
     const user = JSON.parse(localStorage.getItem('user'));
 
-    const modal = document.querySelector("#modal");
-    const openModal = document.querySelector("#openModal");
-    const saveButton = document.querySelector("#saveButton");
-    const cancelButton = document.querySelector("#cancelButton");
+    const [modalOpen, setModalOpen] = useState(false);
 
     const [profilePicture, setProfilePicture] = useState(user.profilePicture);
     const [profileBanner, setProfileBanner] = useState(user.profileBanner);
@@ -19,64 +13,61 @@ export default function Dashboard() {
     const [lastName, setLastName] = useState(user.lname);
     const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber);
     const [location, setLocation] = useState(user?.location);
-  
-    if (modal) {
-      openModal && openModal.addEventListener("click", () => modal.setAttribute('open', 'true'));
-      cancelButton && cancelButton.addEventListener("click", () => modal.removeAttribute('open'));
-      saveButton && saveButton.addEventListener("click", () => {
-        // Get input values
-        
-        const updatedData = {
-        userId: user._id,
-        profilePicture: profilePicture,
-        profileBanner: profileBanner,
-        fname: firstName,
-        lname: lastName,
-        phoneNumber: phoneNumber,
-        location: location
-        };
-
-        const userId = user._id;
-axios.put(`http://localhost:5000/user/` + user._id, updatedData)
-    .then(res => {
-        if (res.status === 200) {
-            axios.get("http://localhost:5000/user/" + userId)
-            .then(res => {
-                if (res.status === 200){
-                    localStorage.setItem("user", JSON.stringify(res.data));
-                    window.location.reload(true);
-                }
-            })
-            
-        }
-    })
-    .catch(err => console.log(err));
-
-  
-  
-        // Close the modal
-        modal.removeAttribute('open');
-      });
-    }
 
     const [searchResult, setSearchResult] = useState([]);
     const [key, setKey] = useState("");
+
     useEffect(() => {
         const search = async () => {
             try {
                 if (!key.trim()) {
-                    setSearchResult([])
-                    return
+                    setSearchResult([]);
+                    return;
                 }
-                const res = await axios.get('http://localhost:5000/Dashboard', {params: {key: key, limit: 5}})
-                setSearchResult(res.data.data)
-                console.log(res)
+                const res = await axios.get('http://localhost:5000/Dashboard', { params: { key: key, limit: 5 } });
+                setSearchResult(res.data.data);
+                console.log(res);
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
+        };
+        search();
+    }, [key]);
+
+    const handleOpenModal = () => {
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+    };
+
+    const handleSaveChanges = async () => {
+        const updatedData = {
+            userId: user._id,
+            profilePicture: profilePicture,
+            profileBanner: profileBanner,
+            fname: firstName,
+            lname: lastName,
+            phoneNumber: phoneNumber,
+            location: location
+        };
+
+        const userId = user._id;
+        try {
+            const res = await axios.put(`http://localhost:5000/user/` + user._id, updatedData);
+            if (res.status === 200) {
+                const userRes = await axios.get("http://localhost:5000/user/" + userId);
+                if (userRes.status === 200) {
+                    localStorage.setItem("user", JSON.stringify(userRes.data));
+                    window.location.reload(true);
+                }
+            }
+            setModalOpen(false);
+        } catch (err) {
+            console.log(err);
         }
-        search()
-    }, [key])
+    };
 
     return (
         <div>    
@@ -94,16 +85,16 @@ axios.put(`http://localhost:5000/user/` + user._id, updatedData)
                             <p>@{user.username}</p>
                             <p className="profile">Artist</p>
 
-                            <button id="openModal">Edit Profile</button>
-                            <dialog className="editProfileDialog" id="modal" >
+                            <button onClick={handleOpenModal}>Edit Profile</button>
+                            <dialog className="editProfileDialog" open={modalOpen} id="modal" >
                                 <p><strong>Profile Picture: </strong><input type="text" defaultValue={user.profilePicture} id="profilePicInput" onChange={(e)=> setProfilePicture(e.target.value)}/></p>
                                 <p><strong>Profile Banner: </strong><input type="text" defaultValue={user.profileBanner} id="profilePicInput" onChange={(e)=> setProfileBanner(e.target.value)}/></p>
                                 <p><strong>First Name: </strong><input type="text" defaultValue={user.fname} id="firstNameInput" onChange={(e)=> setFirstName(e.target.value)}/></p>
                                 <p><strong>Last Name: </strong><input type="text" defaultValue={user.lname} id="lastNameInput" onChange={(e)=> setLastName(e.target.value)}/></p>
                                 <p><strong>Mobile Phone: </strong><input type="number" placeholder="Enter Phone Number" defaultValue={user?.phoneNumber} id="mobileInput" onChange={(e)=> setPhoneNumber(e.target.value)}/></p>
                                 <p><strong>Location: </strong><input type="text" placeholder="Enter Phone Location" defaultValue={user?.location} id="locationInput" onChange={(e)=> setLocation(e.target.value)}/></p>  
-                                <button id="saveButton">Save</button>
-                                <button id="cancelButton">Cancel</button>
+                                <button onClick={handleSaveChanges}>Save</button>
+                                <button onClick={handleCloseModal}>Cancel</button>
 
                             </dialog>
                         </div>
@@ -137,8 +128,8 @@ axios.put(`http://localhost:5000/user/` + user._id, updatedData)
                 </div>
             </div>
         </div>
-);
+    );
+}
 
-};
 
 
