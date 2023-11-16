@@ -145,9 +145,20 @@ input[type="radio"] {
     padding: 1.25rem
 }
 
+.card-body .profileBanner{
+  height: 250px;
+  width: 100% - 250px;
+  position: relative;
+}
+
+.card-body .profilePic{
+  position: absolute;
+}
+
 .pro-img {
     margin-top: -80px;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    position: absolute;
 }
 
 .little-profile .pro-img img {
@@ -441,4 +452,78 @@ ul li a:hover::after{
   text-align: center;
   cursor: default;
 
+} 
+
+dialog{
+  height: 500px;
+  width: 1000px;
+  object-position: 100%;
+  z-index: 10;
+}
+
+dialog input{
+  width: 100%;
+}
+
+.card-body .profilepic{
+  height: 250px;
+  width: 250px;
+}
+
+/*     BENS CODE BELOW   */
+/* Center the form in the middle of the screen */
+.centered-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.add-venue-page {
+  background: linear-gradient(to bottom, rgb(118, 118, 194), rgb(152, 222, 152));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* Center the input elements */
+.centered-input {
+  text-align: center;
+}
+
+/* Add some spacing between the inputs */
+.centered-input input {
+  margin-top: 5px;
+}
+
+.add-venue-button {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-left: 10px;
+  position: relative;
+  line-height: 1; /* Set line-height to 1 for vertical centering */
+
+  /* Set height and width to the same value for a perfect circle */
+  height: 45px; /* Adjust this value as needed */
+  width: 45px;  /* Adjust this value as needed */
+}
+
+.add-venue-button span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.add-venue-button:hover::before {
+  display: block;
 }

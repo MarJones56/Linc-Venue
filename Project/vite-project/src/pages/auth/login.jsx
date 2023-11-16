@@ -3,9 +3,10 @@ import {Link, useNavigate} from 'react-router-dom'
 import React from 'react'
 import Header from "../components/Header";
 import { useContext, useRef } from "react";
-import { AuthContext } from "../../context/AuthContext"
+//import { AuthContext } from "../../context/AuthContext"
 import { useState } from "react";
 import axios from 'axios'
+import { UserContext } from "../components/UserContext";
 
 
 function Login() {
@@ -13,15 +14,31 @@ function Login() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate()
-    const { isFetching, dispatch } = useContext(AuthContext);
+    //const { isFetching, dispatch } = useContext(AuthContext);
     axios.defaults.withCredentials = true;
+    const {setUser} = useContext(UserContext);
+
   const handleClick = (e) => {
     e.preventDefault()
-    axios.post('https://working-art-gallery-server.onrender.com/auth/login',{email,password},)
+    axios.post("http://localhost:3000/login",{email,password},)
     .then(res=>{
         if(res.status === 200){
-            localStorage.setItem('user', JSON.stringify(res.data))
-            navigate('/')
+            //localStorage.setItem('user', JSON.stringify(res.data))
+            console.log(res.data.role);
+            if(res.data.role==="Venue Owner"){
+                console.log(res.data);
+                console.log(res.data._id);
+                setUser(res.data); //user2
+                localStorage.setItem('user', JSON.stringify(res.data))
+                navigate('/venuedashboard')
+            }else{
+                console.log(res.data);
+                console.log(res.data._id);
+                //setUser(res.data);
+                console.log(res.data);
+                localStorage.setItem('user', JSON.stringify(res.data))
+                navigate('/Dashboard')
+            }
         }
     }).catch(err=>console.log(err))
   };
@@ -75,7 +92,8 @@ function Login() {
 
 
                     <div className="button-center" type="submit">
-                        <button className="button main-btn" type="submit" disabled={isFetching}>Log In</button>
+                        <button className="button main-btn" type="submit">Log In</button>
+                        {/* <button className="button main-btn" type="submit">Log In</button> </div> disabled={isFetching}>Log In</button> */}
                     </div>
 
 

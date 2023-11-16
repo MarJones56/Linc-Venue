@@ -11,7 +11,7 @@ export default function Conversation({conversation, currentUser}){
 
         const getUser = async () => {
             try{
-            const res = await axios("https://working-art-gallery-server.onrender.com/user?userId=" + recipientId)
+            const res = await axios("http://localhost:3000/user?userId=" + recipientId)
             setUser(res.data);
             } catch (err){
                 console.log(err);
