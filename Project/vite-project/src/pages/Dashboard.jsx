@@ -43,10 +43,6 @@ export default function Dashboard() {
     };
 
     const handleSaveChanges = async () => {
-        console.log(firstName);
-        console.log(lastName);
-        console.log(phoneNumber);
-        console.log(location);
         const updatedData = {
             userId: user._id,
             profilePicture: profilePicture,
