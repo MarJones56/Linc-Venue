@@ -459,6 +459,9 @@ dialog{
   width: 1000px;
   object-position: 100%;
   z-index: 10;
+  =======
+}
+
 }
 
 dialog input{

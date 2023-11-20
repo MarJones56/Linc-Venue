@@ -23,7 +23,7 @@ const app = express()
 app.use(express.json())
 app.use(cors({
     origin:[process.env.ORIGIN],
-    methods:["GET","POST"],
+    methods:["GET","POST", "PUT"],
     credentials:true
 }))
 app.use(cookieParser())
