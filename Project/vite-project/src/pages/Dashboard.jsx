@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import axios from 'axios';
+import { useState, useEffect, useContext } from "react";
+import axios from 'axios'
 import Header from "./components/Header";
-
+import { UserContext } from './components/UserContext';
 export default function Dashboard() {
     const user = JSON.parse(localStorage.getItem('user'));
 
@@ -97,6 +97,7 @@ export default function Dashboard() {
                                 <button onClick={handleCloseModal}>Cancel</button>
 
                             </dialog>
+
                         </div>
                     </div>
                 </div>
@@ -113,6 +114,7 @@ export default function Dashboard() {
                                 <p><strong>Email: </strong>{user.email}</p>
                                 {user.phoneNumber ? <p><strong>Mobile phone: </strong>{user?.phoneNumber}</p> : ""}
                                 {user.location ? <p><strong>Location: </strong>{user?.location}</p>: ""}
+
                         </div>
                     </div>
                 </div>
@@ -121,6 +123,7 @@ export default function Dashboard() {
                     <div className="card">
                         <div className="card-body little-profile">
                                 <h3 className="m-b-0" title="All previous bookings come here">Booking History</h3>
+
                                 <p>All previous bookings come here
                                 </p>
                         </div>
@@ -130,6 +133,9 @@ export default function Dashboard() {
         </div>
     );
 }
+
+
+
 
 
 

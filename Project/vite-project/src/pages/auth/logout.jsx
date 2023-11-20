@@ -1,9 +1,16 @@
 import {Link, useNavigate} from 'react-router-dom'
+import { useContext } from 'react';
+import { UserContext } from '../components/UserContext';
 
 function LogOut() {
+    const {setUser}  = useContext(UserContext);
 
     const handleClick = async (e) => {
-        localStorage.setItem('user', null)
+        setUser(null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('user2');
+        
+        //localStorage.setItem('user', null)
     };
 
     return(

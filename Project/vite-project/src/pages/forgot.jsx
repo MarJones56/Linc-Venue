@@ -13,6 +13,8 @@ function Forgot() {
     axios.defaults.withCredentials = true;
     const handleSubmit=(e)=>{
         e.preventDefault()
+
+        //axios.post('http://localhost:3000/forgot',{email})
         axios.post('http://localhost:5000/forgot',{email})
         .then(res=>{
             if(res.data.Status==="Success"){

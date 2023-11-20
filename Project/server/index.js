@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cors = require('cors');
@@ -10,10 +9,11 @@ const cookieParser = require('cookie-parser')
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const bcrypt = require('bcrypt');
 
-dotenv.config();
+require("dotenv").config();
 
 try{
-  mongoose.connect(process.env.MONGO_URL)
+  mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+  //mongoose.connect(process.env.MONGO_URL)
   console.log("Connected to MongoDB")
 } catch (err){
   console.log(err);
@@ -28,20 +28,23 @@ app.use(cors({
 }))
 app.use(cookieParser())
 
-
-
-
   //middleware
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
-app.use('/auth', require('./routes/auth'))
+//app.use(require("./routes/auth"))
+
+app.use(require('./routes/auth'))
+app.use(require('./routes/venueOwn'))
+app.use(require('./routes/filter'))
+
+
 app.use('/conversation', require('./routes/conversation'))
 app.use('/messages', require('./routes/messages'))
 app.use('/user', require('./routes/user'))
 
-
-app.listen(process.env.PORT, () => {
-    console.log("Backend Server Is Running Properly")
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
