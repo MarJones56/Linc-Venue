@@ -20,7 +20,7 @@ function Login() {
 
   const handleClick = (e) => {
     e.preventDefault()
-    axios.post("http://localhost:3000/login",{email,password},)
+    axios.post("http://localhost:5000/login",{email,password},)
     .then(res=>{
         if(res.status === 200){
             //localStorage.setItem('user', JSON.stringify(res.data))

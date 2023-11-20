@@ -18,7 +18,6 @@ router.post('/add-venue', async (req, res) => {
     } = req.body;
 
     console.log(name);
-    console.log('working');
     console.log('benjamin');
     console.log(venueType);
     // Create a new venue instance
@@ -51,7 +50,7 @@ router.post('/add-venue', async (req, res) => {
 router.get('/userVenues/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
-    const userIdObjectId = mongoose.Types.ObjectId(userId);
+    const userIdObjectId = new mongoose.Types.ObjectId(userId);
     console.log(userIdObjectId);
     // Assuming ownerId is a String, change it based on your actual data type
     const userVenues = await VenueModel.find({ ownerId: userIdObjectId });

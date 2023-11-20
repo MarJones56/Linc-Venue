@@ -23,7 +23,7 @@ function UserFilter(){
         const queryString = new URLSearchParams(filterCriteria).toString();
         console.log(queryString);
         axios
-            .get(`http://localhost:3000/api/userinfos?${queryString}`)
+            .get(`http://localhost:5000/api/userinfos?${queryString}`)
             .then((response) => {
                 setFilteredUsers(response.data);
             })
@@ -31,7 +31,7 @@ function UserFilter(){
                 console.error('Error fetching users:', error);
             });
         // axios
-        //     .get(`http://localhost:3000/api/userinfos?${queryString}`)
+        //     .get(`http://localhost:5000/api/userinfos?${queryString}`)
         //     .then((response) => {
         //         if (response.status != 200) {
         //             throw new Error(`Request failed: ${response.status} `);

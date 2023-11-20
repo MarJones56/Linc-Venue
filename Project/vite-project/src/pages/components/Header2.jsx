@@ -16,7 +16,7 @@ function Header2() {
               <>
           <Link to="/messenger" >Messenger</Link>&emsp;
 
-          <Link to="/dashboard" >Profile</Link>&emsp;
+          <Link to="/venuedashboard" >Profile</Link>&emsp;
 
           <Link to="/logout">Log Out</Link>
           </>) : (<>

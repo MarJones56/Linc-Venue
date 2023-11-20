@@ -14,13 +14,17 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Header from './components/Header2';
 import moment from 'moment';
 import 'moment-timezone';
-import { UserContext } from './components/UserContext';
+
+//import { UserContext } from './components/UserContext';
 
 export default function AddVenue() {
   const navigate = useNavigate();
   //const [user, setUser] = useState('');
+  const user = JSON.parse(localStorage.getItem('user'));
+
+
   const [selectedType, setSelectedType] = useState('');
-  const { user, updateUser } = useContext(UserContext);
+  //const { user, updateUser } = useContext(UserContext);
   const [venueName, setVenueName] = useState('');
   const [venueDesc, setVenueDesc] = useState('');
   const [venueAddress, setVenueAddress] = useState('');
@@ -50,17 +54,17 @@ export default function AddVenue() {
     console.log(user._id);
     e.preventDefault();
     axios
-      .post("http://localhost:3000/add-venue", {
+      .post("http://localhost:5000/add-venue", {
         ownerId: user._id,
         name: venueName,
         info: venueDesc,
         address: venueAddress,
         maxCapacity: maxCapacity,
         venueType: selectedType,
-        venueCity: venueCity, // Added city state
-        venueState: venueState, // Added city state
-        venueImage: venueImage, // Include venue image URL
-        venueTimeslots: timeslots, // Added timeslots
+        venueCity: venueCity, 
+        venueState: venueState, 
+        venueImage: venueImage, 
+        venueTimeslots: timeslots, 
       })
       .then((res) => {
         if (res.data.error) {

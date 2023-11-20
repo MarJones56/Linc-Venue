@@ -23,7 +23,7 @@ const app = express()
 app.use(express.json())
 app.use(cors({
     origin:[process.env.ORIGIN],
-    methods:["GET","POST"],
+    methods:["GET","POST", "PUT"],
     credentials:true
 }))
 app.use(cookieParser())
@@ -44,7 +44,7 @@ app.use('/conversation', require('./routes/conversation'))
 app.use('/messages', require('./routes/messages'))
 app.use('/user', require('./routes/user'))
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+//const port = process.env.PORT || 3000;
+app.listen(process.env.PORT, () => {
+    console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });
