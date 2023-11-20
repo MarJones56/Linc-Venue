@@ -26,37 +26,37 @@ export default function Dashboard() {
 
     const [key, setKey] = useState("");
  
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     const search = async () => {
+        const search = async () => {
 
-    //         try {
+            try {
 
-    //             if (!key.trim()) {
+                if (!key.trim()) {
 
-    //                 setSearchResult([]);
+                    setSearchResult([]);
 
-    //                 return;
+                    return;
 
-    //             }
+                }
 
-    //             const res = await axios.get('http://localhost:5000/Dashboard', { params: { key: key, limit: 5 } });
+                const res = await axios.get('http://localhost:5000/Dashboard', { params: { key: key, limit: 5 } });
 
-    //             setSearchResult(res.data.data);
+                setSearchResult(res.data.data);
 
-    //             console.log(res);
+                console.log(res);
 
-    //         } catch (error) {
+            } catch (error) {
 
-    //             console.log(error);
+                console.log(error);
 
-    //         }
+            }
 
-    //     };
+        };
 
-    //     search();
+        search();
 
-    // }, [key]);
+    }, [key]);
  
     const handleOpenModal = () => {
 

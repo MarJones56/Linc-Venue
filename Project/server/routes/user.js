@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const bcrypt = require ("bcrypt");
 const UserModel = require("../models/user");
- 
+
 //update
 router.put("/:id", async (req, res) => {
     console.log(req.body.userId + " == " + req.params.id + "||" + req.body.isAdmin);
@@ -13,14 +13,14 @@ router.put("/:id", async (req, res) => {
                 const salt = await bcrypt.genSalt(10);
                 req.body.password = await bcrypt.hash(req.body.password, salt);
             }
- 
+
             // Use findByIdAndUpdate to update the user
             const updatedUser = await UserModel.findByIdAndUpdate(
                 req.params.id,
                 { $set: req.body },
                 { new: true } // Return the updated user
             );
- 
+
             if (updatedUser) {
                 res.status(200).json("Account updated");
             } else {
@@ -35,7 +35,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 //delete
- 
+
 router.delete("/:id", async(req, res) => {
     if(req.body.userId == req.params.id || req.body.isAdmin){
         try{
@@ -48,8 +48,8 @@ router.delete("/:id", async(req, res) => {
         return res.status(403).json("You can only delete your account")
     }
 })
- 
- 
+
+
 //get
 router.get("/", async (req, res) => {
     const userId = req.query.userId;
@@ -64,7 +64,7 @@ router.get("/", async (req, res) => {
       res.status(500).json(err);
     }
   });
- 
+
   //get
 router.get("/:id", async (req, res) => {
     const userId = req.params.id;
@@ -79,7 +79,7 @@ router.get("/:id", async (req, res) => {
       res.status(500).json(err);
     }
   });
- 
 
- 
+
+
 module.exports = router;
