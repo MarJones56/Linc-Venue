@@ -17,7 +17,6 @@ import AddVenue from './pages/AddVenue';
 function App() {
 
   return (
-    <UserContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/register" element={<Signup/>}></Route>
@@ -32,7 +31,6 @@ function App() {
           <Route path="/venuedashboard/addVenue" element={<AddVenue/>}></Route>
         </Routes>
       </BrowserRouter>
-    </UserContextProvider>
 
       
   )

@@ -28,7 +28,7 @@ function Login() {
             if(res.data.role==="Venue Owner"){
                 console.log(res.data);
                 console.log(res.data._id);
-                setUser(res.data); //user2
+                //setUser(res.data); //user2
                 localStorage.setItem('user', JSON.stringify(res.data))
                 navigate('/venuedashboard')
             }else{

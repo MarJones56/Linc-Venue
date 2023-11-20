@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { UserContext } from './components/UserContext';
-import Header from './components/Header2';
+import Header from './components/Header';
 import axios from 'axios';
 import VenueCard from "./components/Venues/VenueCard";
 
@@ -30,7 +30,7 @@ export default function VenueDashboard() {
   //console.log("working");
 
   if (!user) {
-    return <Navigate to={'/dashboard'} />;
+    return <Navigate to={'/error'} />;
   }
   return (
     <div>
