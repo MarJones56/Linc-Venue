@@ -7,6 +7,8 @@ import { useContext, useRef } from "react";
 import { useState } from "react";
 import axios from 'axios'
 import { UserContext } from "../components/UserContext";
+import {  signInWithPopup, GoogleAuthProvider,FacebookAuthProvider, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "firebase/auth";
+import { auth } from '../../firebase';
 
 
 function Login() {
@@ -17,6 +19,42 @@ function Login() {
     //const { isFetching, dispatch } = useContext(AuthContext);
     axios.defaults.withCredentials = true;
     const {setUser} = useContext(UserContext);
+    const googleprovider = new GoogleAuthProvider();
+
+    const socialLogin = (email) =>{
+        axios.post("http://localhost:5000/login",{email,password},)
+    .then(res=>{
+        if(res.status === 200){
+            //localStorage.setItem('user', JSON.stringify(res.data))
+            console.log(res.data.role);
+                console.log(res.data);
+                // console.log(res.data._id);
+                //setUser(res.data);
+                // console.log(res.data);
+                localStorage.setItem('user', JSON.stringify(res.data))
+                navigate('/Dashboard')
+            
+        }
+    }).catch(err=>console.log(err))
+    }
+
+    const googleSignIn=()=>{
+        signInWithPopup(auth, googleprovider)
+            .then((result) => {
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                const user = result.user;
+                socialLogin(user.email)
+                
+                localStorage.setItem('user', JSON.stringify(result.data))
+                navigate("/Dashboard")
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                const email = error.customData.email;
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
+    }
 
   const handleClick = (e) => {
     e.preventDefault()
@@ -107,6 +145,15 @@ function Login() {
                     
                     
                     </form>
+                    <button
+                        className='bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-400 focus:ring-opacity-50 mt-4'
+                        onClick={googleSignIn}
+                    >
+                        <div className='flex'>
+                            <text>Continue with Google</text>
+                            <img src="https://img.icons8.com/material/24/ffffff/google-logo--v1.png"/>
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>
