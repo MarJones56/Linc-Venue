@@ -34,9 +34,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
 
-//app.use(require("./routes/auth"))
-
-app.use(require('./routes/auth'))
+app.use('/auth', require('./routes/auth'))
 app.use(require('./routes/venueOwn'))
 app.use(require('./routes/filter'))
 
@@ -49,3 +47,4 @@ app.use('/user', require('./routes/user'))
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });
+

@@ -26,6 +26,7 @@ export default function SignUp() {
       try {
         console.log(username,email)
         await axios.post("http://localhost:5001/register",{username, email, password, fname, lname, role, gender, age}, 
+
         {withCredentials: true,
         credentials: 'include',
       });

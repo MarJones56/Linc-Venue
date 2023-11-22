@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-
 import axios from 'axios';
-
 import Header from "./components/Header";
- 
 export default function Dashboard() {
 
     const user = JSON.parse(localStorage.getItem('user'));
@@ -117,7 +114,6 @@ export default function Dashboard() {
             console.log(err);
 
         }
-
     };
  
     return (
@@ -127,7 +123,6 @@ export default function Dashboard() {
             <Header />
 
         <div>
-
             <div className="padding">
 
                 <div>
@@ -167,7 +162,6 @@ export default function Dashboard() {
                                 <button onClick={handleSaveChanges}>Save</button>
 
                                 <button onClick={handleCloseModal}>Cancel</button>
- 
                             </dialog>
 
                         </div>
@@ -180,11 +174,13 @@ export default function Dashboard() {
  
             <div className="padding">
 
+
                     <div className="card">
 
                         <div className="card-body little-profile">
 
                                 <h3 className="m-b-0">Profile Information</h3>                                
+
 
                                 {/* <button onClick={()=>{ alert('alert'); }}>edit</button> */}
 
@@ -197,7 +193,6 @@ export default function Dashboard() {
                                 <p><strong>Email: </strong>{user.email}</p>
 
                                 {user.phoneNumber ? <p><strong>Mobile phone: </strong>{user?.phoneNumber}</p> : ""}
-
                                 {user.location ? <p><strong>Location: </strong>{user?.location}</p>: ""}
 
                         </div>
@@ -213,7 +208,6 @@ export default function Dashboard() {
                         <div className="card-body little-profile">
 
                                 <h3 className="m-b-0" title="All previous bookings come here">Booking History</h3>
-
                                 <p>All previous bookings come here
 
                                 </p>
@@ -223,7 +217,6 @@ export default function Dashboard() {
                     </div>
 
                 </div>
-
             </div>
 
         </div>

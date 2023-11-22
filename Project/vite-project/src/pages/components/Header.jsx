@@ -2,7 +2,12 @@ import {Link, useNavigate} from 'react-router-dom'
 import { useState } from "react";
 function Header() {
 
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
+    if (localStorage.getItem('user') == undefined){
+        localStorage.setItem('user', null)
+        console.log("user is undefined")
+    }
+    
+    const user = JSON.parse(localStorage.getItem('user')) || null;
 
     return (
         <div className='header'>

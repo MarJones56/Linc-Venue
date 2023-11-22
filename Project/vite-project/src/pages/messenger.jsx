@@ -20,6 +20,7 @@ function Messenger(){
     useEffect(() =>{    
         const getConversations = async ()=>{
             try{
+
                 const res = await axios.get("http://localhost:5001/conversation/" + user._id)
                 setConversations(res.data);
             }catch(err){
@@ -54,6 +55,7 @@ function Messenger(){
 
         try{
             const res = await axios.post("http://localhost:5001/messages", messageObj);
+
             setMessages([...message, res.data])
             setNewMessage("")
         }catch (err){

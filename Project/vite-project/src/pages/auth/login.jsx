@@ -90,6 +90,7 @@ function Login() {
   const handleClick = (e) => {
     e.preventDefault()
     axios.post("http://localhost:5001/login",{email,password},)
+
     .then(res=>{
         if(res.status === 200){
             //localStorage.setItem('user', JSON.stringify(res.data))
