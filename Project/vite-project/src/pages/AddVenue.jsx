@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link ,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
   Accordion,
@@ -10,17 +10,31 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Header from './components/Header2';
 import moment from 'moment';
 import 'moment-timezone';
-import { UserContext } from './components/UserContext';
+
+//import { UserContext } from './components/UserContext';
 
 export default function AddVenue() {
+
+  const PopupMessage = () => {
+    return (
+      <div className="popup">
+        <p> Oops!! FILL OUT ALL FIELDS</p>
+      </div>
+    );
+  };
+
   const navigate = useNavigate();
   //const [user, setUser] = useState('');
+  const user = JSON.parse(localStorage.getItem('user'));
+
+
   const [selectedType, setSelectedType] = useState('');
-  const { user, updateUser } = useContext(UserContext);
+  //const { user, updateUser } = useContext(UserContext);
   const [venueName, setVenueName] = useState('');
   const [venueDesc, setVenueDesc] = useState('');
   const [venueAddress, setVenueAddress] = useState('');
@@ -49,18 +63,24 @@ export default function AddVenue() {
     console.log(timeslots);
     console.log(user._id);
     e.preventDefault();
+    // Check if all required fields are filled
+    if (!venueName || !venueAddress || !venueDesc || !maxCapacity || !selectedType || !venueCity || !venueState || timeslots.length === 0 || !venueImage) {
+      togglePopup();
+      return;
+    }
+
     axios
-      .post("http://localhost:3000/add-venue", {
+      .post("http://localhost:5001/add-venue", {
         ownerId: user._id,
         name: venueName,
         info: venueDesc,
         address: venueAddress,
         maxCapacity: maxCapacity,
         venueType: selectedType,
-        venueCity: venueCity, // Added city state
-        venueState: venueState, // Added city state
-        venueImage: venueImage, // Include venue image URL
-        venueTimeslots: timeslots, // Added timeslots
+        venueCity: venueCity, 
+        venueState: venueState, 
+        venueImage: venueImage, 
+        venueTimeslots: timeslots, 
       })
       .then((res) => {
         if (res.data.error) {
@@ -81,12 +101,18 @@ export default function AddVenue() {
     setSelectedType(value);
   };
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const togglePopup = () => {
+    setShowPopup(!showPopup);
+  };
+
   return (
     <div>
       <Header />
       <div className="add-venue-page">
-        <div className="flex flex-col items-center justify-center h-screen">
-          <form className="bg-white shadow-md rounded-lg p-8 w-2/3 mb-6 text-center">
+        <div className="flex flex-col items-center justify-center h-screen bg-white p-3 rounded">
+          <form style={{ width: '80%' }} className="bg-white shadow-md rounded-lg p-8 w-4/5 mb-6 text-center">
             <h4 className="m-1 items-center">
               <b>Add a Venue!</b>
             </h4>
@@ -218,11 +244,14 @@ export default function AddVenue() {
                 placeholder="Enter Venue Image URL"
               />
             </div>
-            <div>
-              <button className="submitVenue" type="submit" onClick={onSubmit}>
-                Submit
+            <div className="button-center" type="submit">
+              <button className="button main-btn" type="submit" onClick={onSubmit}>
+                ADD
               </button>
+
+              {showPopup && <PopupMessage />}
             </div>
+
           </form>
         </div>
       </div>

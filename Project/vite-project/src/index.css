@@ -484,7 +484,7 @@ dialog input{
 }
 
 .add-venue-page {
-  background: linear-gradient(to bottom, rgb(118, 118, 194), rgb(152, 222, 152));
+  background: linear-gradient(to bottom, rgb(62, 62, 66), rgb(197, 207, 197));
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -529,4 +529,61 @@ dialog input{
 
 .add-venue-button:hover::before {
   display: block;
+}
+
+/* Ben Venue Card CSS */
+.venue-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+/*Ben Search Users buttons */
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style for the dropdown button */
+.dropdown-button {
+  background-color: #61c7a0;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Style for the dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Style for the dropdown buttons */
+.dropdown-button-option {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+/* Style for the dropdown buttons on hover */
+.dropdown-button-option:hover {
+  background-color: #ddd;
 }

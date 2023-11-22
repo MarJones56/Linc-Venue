@@ -20,8 +20,8 @@ function Messenger(){
     useEffect(() =>{    
         const getConversations = async ()=>{
             try{
-                //const res = await axios.get("http://localhost:3000/conversation/" + user._id)
-                const res = await axios.get("http://localhost:5000/conversation/" + user._id)
+
+                const res = await axios.get("http://localhost:5001/conversation/" + user._id)
                 setConversations(res.data);
             }catch(err){
                 console.log(err)    
@@ -34,10 +34,7 @@ function Messenger(){
     useEffect(() =>{
         const getMessages = async () => {
             try{
-                //const res = await axios.get("http://localhost:3000/messages/" + currentChat?._id);
-
-                const res = await axios.get("http://localhost:5000/messages/" + currentChat?._id);
-
+                const res = await axios.get("http://localhost:5001/messages/" + currentChat?._id);
                 setMessages(res.data);
             }
             catch (err){
@@ -57,9 +54,8 @@ function Messenger(){
         };
 
         try{
-            //const res = await axios.post("http://localhost:3000/messages", messageObj);
+            const res = await axios.post("http://localhost:5001/messages", messageObj);
 
-            const res = await axios.post("http://localhost:5000/messages", messageObj);
             setMessages([...message, res.data])
             setNewMessage("")
         }catch (err){

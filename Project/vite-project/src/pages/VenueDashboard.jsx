@@ -3,16 +3,18 @@ import { Link, Navigate } from 'react-router-dom';
 import { UserContext } from './components/UserContext';
 import Header from './components/Header2';
 import axios from 'axios';
+import VenueCard from "./components/Venues/VenueCard";
 
 export default function VenueDashboard() {
-  const { user, updateUser } = useContext(UserContext);
+  //const { user, updateUser } = useContext(UserContext);
+  const user = JSON.parse(localStorage.getItem('user'));
   const [showVenues, setShowVenues] = useState(false);
   const [userVenues, setUserVenues] = useState([]);
 
   const handleShowVenues = () => {
     if (user) {
       axios
-        .get(`http://localhost:3000/userVenues/${user._id}`)
+        .get(`http://localhost:5001/userVenues/${user._id}`)
         .then((response) => {
           setUserVenues(response.data);
         })
@@ -28,7 +30,7 @@ export default function VenueDashboard() {
   //console.log("working");
 
   if (!user) {
-    return <Navigate to={'/dashboard'} />;
+    return <Navigate to={'/error'} />;
   }
   return (
     <div>
@@ -127,17 +129,7 @@ export default function VenueDashboard() {
                   ) : (
                     <div className="venue-cards">
                       {userVenues.map((venue) => (
-                        <div key={venue._id} className="venue-card">
-                          {/* Render venue information here */}
-                          <h4>{venue.name}</h4>
-                          <p>{venue.info}</p>
-                          <img
-                            src={venue.image}
-                            alt={`Image for ${venue.name}`}
-                            style={{ width: '300px', height: '200px' }} // Set the desired width and height
-                          />
-                          {/* Add more details as needed */}
-                        </div>
+                        <VenueCard key={venue._id} venue={venue} />
                       ))}
                     </div>
                   )}

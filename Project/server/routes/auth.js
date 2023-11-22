@@ -71,4 +71,20 @@ router.post('/login',(req,res)=>{
   })
 })
 
+router.post('/Glogin/:email',(req,res)=>{
+  const email=req.params.email;
+  const gmail  = String(email);
+  console.log(gmail);
+  UserModel.findOne({email: gmail})
+  .then(user=>{
+    if (res.status(200)){
+
+      console.log(user);
+		  return res.status(200).json(user);
+	  }else{
+		  return res.json("No record")
+	  }
+  })
+})
+
 module.exports = router;

@@ -6,7 +6,7 @@ function LogOut() {
     const {setUser}  = useContext(UserContext);
 
     const handleClick = async (e) => {
-        setUser(null);
+        //setUser(null);
         localStorage.removeItem('user');
         localStorage.removeItem('user2');
         

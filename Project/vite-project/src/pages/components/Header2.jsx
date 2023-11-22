@@ -2,8 +2,8 @@ import {Link, useNavigate} from 'react-router-dom'
 import { useState, useContext } from "react";
 import { UserContext } from '../components/UserContext';
 function Header2() {
-  const { user, updateUser } = useContext(UserContext);
-  //const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
+  //const { user, updateUser } = useContext(UserContext);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
 
   return (
       <div className='header'>
@@ -16,7 +16,7 @@ function Header2() {
               <>
           <Link to="/messenger" >Messenger</Link>&emsp;
 
-          <Link to="/dashboard" >Profile</Link>&emsp;
+          <Link to="/venuedashboard" >Profile</Link>&emsp;
 
           <Link to="/logout">Log Out</Link>
           </>) : (<>
