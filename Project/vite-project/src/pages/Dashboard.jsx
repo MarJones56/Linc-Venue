@@ -40,7 +40,7 @@ export default function Dashboard() {
 
                 }
 
-                const res = await axios.get('http://localhost:5000/Dashboard', { params: { key: key, limit: 5 } });
+                const res = await axios.get('http://localhost:5001/Dashboard', { params: { key: key, limit: 5 } });
 
                 setSearchResult(res.data.data);
 
@@ -94,11 +94,11 @@ export default function Dashboard() {
 
         try {
 
-            const res = await axios.put(`http://localhost:5000/user/` + user._id, updatedData);
+            const res = await axios.put(`http://localhost:5001/user/` + user._id, updatedData);
 
             if (res.status === 200) {
 
-                const userRes = await axios.get("http://localhost:5000/user/" + userId);
+                const userRes = await axios.get("http://localhost:5001/user/" + userId);
 
                 if (userRes.status === 200) {
 

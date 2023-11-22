@@ -13,7 +13,7 @@ export function UserContextProvider({ children }) {
   useEffect(() => {
     // Fetch user data only if user is not present
     if (!user) {
-      axios.get('http://localhost:5000/profile').then(({ data }) => {
+      axios.get('http://localhost:5001/profile').then(({ data }) => {
         setUser(data);
 
         // Store the user data in localStorage

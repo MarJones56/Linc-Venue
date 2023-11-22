@@ -20,41 +20,6 @@ export default function SignUp() {
     const navigate = useNavigate();
     const googleprovider = new GoogleAuthProvider();
 
-    const socialLogin = (email) =>{
-        axios.post("http://localhost:5000/login",{email,password},)
-    .then(res=>{
-        if(res.status === 200){
-            //localStorage.setItem('user', JSON.stringify(res.data))
-            console.log(res.data.role);
-                console.log(res.data);
-                console.log(res.data._id);
-                //setUser(res.data);
-                console.log(res.data);
-                localStorage.setItem('user', JSON.stringify(res.data))
-                navigate('/Dashboard')
-            
-        }
-    }).catch(err=>console.log(err))
-    }
-
-    const googleSignIn=()=>{
-        signInWithPopup(auth, googleprovider)
-            .then((result) => {
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                const user = result.user;
-                socialLogin(user.email)
-                
-                localStorage.setItem('user', JSON.stringify(result.data))
-                navigate("/Dashboard")
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                const email = error.customData.email;
-                const credential = GoogleAuthProvider.credentialFromError(error);
-            });
-    }
-
   const handleClick = async (e) => {
     e.preventDefault();
     if (passAgain !== password) {
@@ -62,7 +27,7 @@ export default function SignUp() {
     } else {
       try {
         console.log(username,email)
-        await axios.post("http://localhost:5000/register",{username, email, password, fname, lname, role, gender, age}, 
+        await axios.post("http://localhost:5001/register",{username, email, password, fname, lname, role, gender, age}, 
         {withCredentials: true,
         credentials: 'include',
       });

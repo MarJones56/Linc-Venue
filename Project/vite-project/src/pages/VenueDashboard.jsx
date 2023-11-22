@@ -14,7 +14,7 @@ export default function VenueDashboard() {
   const handleShowVenues = () => {
     if (user) {
       axios
-        .get(`http://localhost:5000/userVenues/${user._id}`)
+        .get(`http://localhost:5001/userVenues/${user._id}`)
         .then((response) => {
           setUserVenues(response.data);
         })

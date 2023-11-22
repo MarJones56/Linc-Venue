@@ -80,6 +80,18 @@ router.get("/:id", async (req, res) => {
     }
   });
 
+  router.get("/:email", async (req, res) => {
+    const email = req.params.email;
+ 
+    try{
+      const user = await UserModel.findOne({email: email});
+      // const { password, updatedAt, ...other } = user._doc;
+      console.log(user);
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
 
 
 module.exports = router;

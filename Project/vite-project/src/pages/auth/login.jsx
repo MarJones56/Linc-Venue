@@ -22,7 +22,7 @@ function Login() {
     const googleprovider = new GoogleAuthProvider();
 
     const socialLogin = (email) =>{
-        axios.post("http://localhost:5000/login",{email,password},)
+        axios.post("http://localhost:5001/login",{email,password},)
     .then(res=>{
         if(res.status === 200){
             //localStorage.setItem('user', JSON.stringify(res.data))
@@ -40,14 +40,45 @@ function Login() {
 
     const googleSignIn=()=>{
         signInWithPopup(auth, googleprovider)
-            .then((result) => {
+            .then(async (result) => {
                 const credential = GoogleAuthProvider.credentialFromResult(result);
                 const token = credential.accessToken;
                 const user = result.user;
-                socialLogin(user.email)
+                const email=user.email; 
+                console.log(result);
+                console.log(email);
+                try{
+                    const userResult = await axios.post("http://localhost:5001/Glogin/"+ email);
+                    console.log(userResult);
+                    
+                    if (userResult.status===200){
+                        // localStorage.setItem('user', JSON.stringify(userResult.data))
+                        console.log(userResult.data);
+                        if(userResult.data.role==="Venue Owner"){
+                            console.log(userResult.data);
+                            console.log(userResult.data._id);
+                            //setUser(res.data); //user2
+                            localStorage.setItem('user', JSON.stringify(userResult.data))
+                            navigate('/venuedashboard')
+                        }else{
+                            console.log(userResult.data);
+                            console.log(userResult.data._id);
+                            //setUser(res.data);
+                            console.log(userResult.data);
+                            localStorage.setItem('user', JSON.stringify(userResult.data))
+                            navigate('/Dashboard')
+                        }
+                    }
+                    
+                }catch(err){
+                    console.log(err);
+                }
+                // console.log(user.email);
+                // socialLogin(user.email)
                 
-                localStorage.setItem('user', JSON.stringify(result.data))
-                navigate("/Dashboard")
+                // localStorage.setItem('user', JSON.stringify(result.data))
+                // console.log(user.data)
+                // navigate("/Dashboard")
             }).catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -58,7 +89,7 @@ function Login() {
 
   const handleClick = (e) => {
     e.preventDefault()
-    axios.post("http://localhost:5000/login",{email,password},)
+    axios.post("http://localhost:5001/login",{email,password},)
     .then(res=>{
         if(res.status === 200){
             //localStorage.setItem('user', JSON.stringify(res.data))

@@ -70,7 +70,7 @@ export default function AddVenue() {
     }
 
     axios
-      .post("http://localhost:5000/add-venue", {
+      .post("http://localhost:5001/add-venue", {
         ownerId: user._id,
         name: venueName,
         info: venueDesc,
