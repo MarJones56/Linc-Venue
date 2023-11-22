@@ -3,8 +3,7 @@ import { useRef } from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import Header from "../components/Header";
 import { useState } from "react";
-import {  signInWithPopup, GoogleAuthProvider,FacebookAuthProvider, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "firebase/auth";
-import { auth } from '../../firebase';
+
 
 
 export default function SignUp() {
@@ -18,7 +17,6 @@ export default function SignUp() {
     const [age, setAge] = useState()
     const [passAgain, setPA] = useState()
     const navigate = useNavigate();
-    const googleprovider = new GoogleAuthProvider();
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -202,16 +200,6 @@ export default function SignUp() {
                     <p>Login</p>
                 </Link></div>
                 </form>
-
-                {/* <button
-                        className='bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-400 focus:ring-opacity-50 mt-4'
-                        onClick={googleSignIn}
-                    >
-                        <div className='flex'>
-                            <text>Continue with Google</text>
-                            <img src="https://img.icons8.com/material/24/ffffff/google-logo--v1.png"/>
-                        </div>
-                    </button> */}
 
 
             </div>
