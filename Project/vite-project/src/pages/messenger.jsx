@@ -23,7 +23,7 @@ function Messenger(){
     const user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
-        socket.current = io("ws://localhost:8900");
+        socket.current = io("https://socket-server-c6x1.onrender.com");
         socket.current.on("getMessage", (data) =>{
         setArrivalMessage({
                 sender: data.senderId,

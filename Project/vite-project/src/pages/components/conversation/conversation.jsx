@@ -11,7 +11,7 @@ export default function Conversation({ conversation, currentUser }) {
 
 
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("https://socket-server-c6x1.onrender.com");
 }, []);
 
 
