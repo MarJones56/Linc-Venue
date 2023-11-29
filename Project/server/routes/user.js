@@ -80,5 +80,20 @@ router.get("/:id", async (req, res) => {
     }
   });
 
+router.get("/searchByUsername/:username", async (req, res) => {
+  const userN = req.params.username;
+  console.log(userN);
+
+  UserModel.findOne({username: userN})
+  .then(user=>{
+    if (res.status(200)){
+      console.log(user);
+		  return res.status(200).json(user);
+	  }else{
+		  return res.json("No record")
+	  }
+  })
+  });
+
 
 module.exports = router;
