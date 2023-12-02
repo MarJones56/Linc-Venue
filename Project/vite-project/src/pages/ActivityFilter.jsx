@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from "./components/Header"; 
 import ActivityCard from "./components/Activites/ActivityCard";
 import SearchIcon from '@mui/icons-material/Search';
+import ActivityPopup from './components/Activites/ActivityPopUp';
 
 function ActivityFilter() {
   const [filteredActivities, setFilteredActivities] = useState([]);
@@ -15,7 +16,24 @@ function ActivityFilter() {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
+
+  //PopUp for clicking cards
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedActivity, setSelectedActivity] = useState(null);
+
+  // Function to handle activity card click
+  const handleActivityCardClick = (activity) => {
+    console.log(activity);
+    setSelectedActivity(activity);
+    setShowPopup(true);
+  };
+
+  // Function to close the popup
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setSelectedActivity(null);
+  };
 
   const handleActivityFilter = async (category, value) => {
     let filterCriteria = {};
@@ -376,7 +394,7 @@ function ActivityFilter() {
               <p>No activities found</p>
             ) : (
               filteredActivities.map((activites) => (
-                <ActivityCard key={activites._id} venue={activites} />
+                <ActivityCard key={activites._id} venue={activites} onClick={() => handleActivityCardClick(activites)} />
               ))
             )}
           </div>
@@ -393,6 +411,13 @@ function ActivityFilter() {
               Next Page
             </button>
           </div>
+          {/* Popup for activity details */}
+          {showPopup && selectedActivity && (
+            <ActivityPopup
+              activity={selectedActivity}
+              onClose={handleClosePopup}
+            />
+          )}
         </div>
       </div>
     </div>

@@ -171,7 +171,7 @@ export default function AddVenue() {
                 label="VenueState"
                 value={venueState}
                 onChange={(e) => setVenueState(e.target.value)}
-                placeholder="Enter Venue State"
+                placeholder="Enter Venue State Acronym"
               />
             </div>
 

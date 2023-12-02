@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate, NavLink, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Header from "./components/Header"; 
-import ActivityCard from "./components/Activites/ActivityCard";
+import VenueCard from "./components/Venues/VenueCard";
 import SearchIcon from '@mui/icons-material/Search';
 
 function VenueFilter() {
-  const [filteredActivities, setFilteredActivities] = useState([]);
-  const [activityName, setActivityName] = useState('');
+  const [filteredVenues, setFilteredVenues] = useState([]);
+  const [venueName, setVenueName] = useState('');
   const [cost, setCost] = useState('');
   const [location, setLocation] = useState('');
   const [timeslot, setTimeslot] = useState('');
@@ -15,50 +15,44 @@ function VenueFilter() {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
 
-  const handleActivityFilter = async () => {
+  const handleVenueFilter = async (category, value) => {
     let filterCriteria = {};
-
-    // Add criteria to the filter object based on selected values
-    if (activityName) {
-      filterCriteria.name = activityName;
+    if (category === 'type_of_venue' || category === 'venueLocation') {
+        filterCriteria = {
+            [category]: value,
+        };
     }
-
-    if (cost) {
-      filterCriteria.chargeable = cost === 'Free';
+    else{
+      filterCriteria.venueName = venueName;
     }
-
-    if (location) {
-      filterCriteria['venueLocation.city'] = location;
-    }
-
-    if (timeslot) {
-      filterCriteria.timeslot = timeslot;
-    }
-
     console.log(filterCriteria);
-    try {
-      const queryString = new URLSearchParams(filterCriteria).toString();
-      const response = await axios.get(`http://localhost:5001/api/activityFilter?${queryString}`);
-      setFilteredActivities(response.data);
-    } catch (error) {
-      console.error('Error fetching activities:', error);
-    }
-
+    console.log("before is filtercriteria");
+    const queryString = new URLSearchParams(filterCriteria).toString();
+    console.log(queryString);
+    axios
+        .get(`http://localhost:5001/api/venuefilter?${queryString}`)
+        .then((response) => {
+          setFilteredVenues(response.data);
+        })
+        .catch((error) => {
+            console.error('Error fetching users:', error);
+        });
+    
     setCurrentPage(1);
   };
 
-  const handleShowAllAcivities = async () => {
-    handleUserFilter('chargeable', ''); // Example: Set to an empty value for all users
+  const handleShowAllVenues = async () => {
+    handleVenueFilter('timeslot', ''); // Example: Set to an empty value for all users
   };
 
   // Pagination
   const indexOfLastActivity = currentPage * itemsPerPage;
   const indexOfFirstAcitivity = indexOfLastActivity - itemsPerPage;
-  const currentActivites = filteredActivities.slice(indexOfFirstAcitivity, indexOfLastActivity);
+  const currentActivites = filteredVenues.slice(indexOfFirstAcitivity, indexOfLastActivity);
 
-  const totalPages = Math.ceil(filteredActivities.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredVenues.length / itemsPerPage);
 
   const handleNextPage = () => {
       if (currentPage < totalPages) {
@@ -111,10 +105,10 @@ function VenueFilter() {
                 <input
                   type="text"
                   placeholder="Venue Name"
-                  value={activityName}
-                  onChange={(e) => setActivityName(e.target.value)}
+                  value={venueName}
+                  onChange={(e) => setVenueName(e.target.value)}
                 />
-                <button onClick={handleActivityFilter}>
+                <button onClick={handleVenueFilter}>
                   <SearchIcon />
                 </button>
               </div>
@@ -130,31 +124,31 @@ function VenueFilter() {
                 <div className="dropdown-content" id="type-dropdown">
                 <button
                     className="dropdown-button-option"
-                    onClick={() => handleActivityFilter('type_of_venue', 'Art Gallery')}
+                    onClick={() => handleVenueFilter('type_of_venue', 'Art Gallery')}
                 >
                     Art Gallery
                 </button>
                 <button
                     className="dropdown-button-option"
-                    onClick={() => handleActivityFilter('type_of_venue', 'Museum')}
+                    onClick={() => handleVenueFilter('type_of_venue', 'Museum')}
                 >
                     Museum
                 </button>
                 <button
                     className="dropdown-button-option"
-                    onClick={() => handleActivityFilter('type_of_venue', 'Theater')}
+                    onClick={() => handleVenueFilter('type_of_venue', 'Theater')}
                 >
                     Theater
                 </button>
                 <button
                     className="dropdown-button-option"
-                    onClick={() => handleActivityFilter('type_of_venue', 'Cultural Center')}
+                    onClick={() => handleVenueFilter('type_of_venue', 'Cultural Center')}
                 >
                     Cultural Center
                 </button>
                 <button
                     className="dropdown-button-option"
-                    onClick={() => handleActivityFilter('type_of_venue', 'Auction')}
+                    onClick={() => handleVenueFilter('type_of_venue', 'Auction')}
                 >
                     Auction
                 </button>
@@ -169,154 +163,154 @@ function VenueFilter() {
                 Select Location
                 </button>
                 <div className="dropdown-content" id="location-dropdown">
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'AL')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'AL')}>
                     AL
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'AK')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'AK')}>
                     AK
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'AZ')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'AZ')}>
                     AZ
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'AR')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'AR')}>
                     AR
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'CA')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'CA')}>
                     CA
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'CO')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'CO')}>
                     CO
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'CT')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'CT')}>
                     CT
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'DE')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'DE')}>
                     DE
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'FL')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'FL')}>
                     FL
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'GA')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'GA')}>
                     GA
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'HI')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'HI')}>
                     HI
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'ID')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'ID')}>
                     ID
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'IL')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'IL')}>
                     IL
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'IN')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'IN')}>
                     IN
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'IA')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'IA')}>
                     IA
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'KS')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'KS')}>
                     KS
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'KY')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'KY')}>
                     KY
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'LA')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'LA')}>
                     LA
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'ME')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'ME')}>
                     ME
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'MD')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'MD')}>
                     MD
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'MA')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'MA')}>
                     MA
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'MI')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'MI')}>
                     MI
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'MN')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'MN')}>
                     MN
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'MS')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'MS')}>
                     MS
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'MO')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'MO')}>
                     MO
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'MT')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'MT')}>
                     MT
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'NE')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'NE')}>
                     NE
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'NV')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'NV')}>
                     NV
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'NH')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'NH')}>
                     NH
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'NJ')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'NJ')}>
                     NJ
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'NM')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'NM')}>
                     NM
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'NY')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'NY')}>
                     NY
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'NC')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'NC')}>
                     NC
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'ND')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'ND')}>
                     ND
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'OH')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'OH')}>
                     OH
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'OK')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'OK')}>
                     OK
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'OR')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'OR')}>
                     OR
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'PA')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'PA')}>
                     PA
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'RI')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'RI')}>
                     RI
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'SC')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'SC')}>
                     SC
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'SD')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'SD')}>
                     SD
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'TN')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'TN')}>
                     TN
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'TX')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'TX')}>
                     TX
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'UT')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'UT')}>
                     UT
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'VT')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'VT')}>
                     VT
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'VA')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'VA')}>
                     VA
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'WA')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'WA')}>
                     WA
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'WV')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'WV')}>
                     WV
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'WI')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'WI')}>
                     WI
                   </button>
-                  <button className="dropdown-button-option" onClick={() => handleActivityFilter('venueLocation', 'WY')}>
+                  <button className="dropdown-button-option" onClick={() => handleVenueFilter('venueLocation', 'WY')}>
                     WY
                   </button>
                 </div>
@@ -324,18 +318,15 @@ function VenueFilter() {
             </div>
           </div>
         </div>
-
-
-
         <div className="searchResults">
           <h2>Search Results</h2>
           <div className='stretch-out'>
-          <button onClick={handleShowAllAcivities}>Show All Activites</button>
-            {filteredActivities.length === 0 ? (
-              <p>No activities found</p>
+          <button onClick={handleShowAllVenues}>Show All Venues</button>
+            {filteredVenues.length === 0 ? (
+              <p>No venues found</p>
             ) : (
-              filteredActivities.map((activity) => (
-                <ActivityCard key={activity._id} activity={activity} />
+              filteredVenues.map((venue) => (
+                <VenueCard key={venue._id} venue={venue} />
               ))
             )}
           </div>

@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const UserInfoModel = require("../models/user");
 const Activity = require("../models/activity");
+const Venue = require("../models/venue");
+
 const mongoose = require("mongoose");
 
 /// FILTERING STUFF IS BELOW
@@ -69,7 +71,37 @@ router.get('/api/activityfilter', async (req, res) => {
     console.log(filteredUsers);
     res.json(filteredUsers);
   } catch (error) {
-    console.error('Error fetching users:', error);
+    console.error('Error fetching activities:', error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+});
+
+router.get('/api/venuefilter', async (req, res) => {
+  try {
+    const { venueName, type_of_venue, venueLocation } = req.query;
+
+    const filterCriteria = {};
+    console.log(venueName);
+    console.log(venueLocation);
+
+    if (venueLocation) {
+      filterCriteria['location.state'] = venueLocation;
+    } 
+
+    if (venueName) {
+      filterCriteria.name = { $regex: new RegExp(venueName, 'i') };
+    }
+
+    if (type_of_venue) {
+      filterCriteria.type_of_venue = type_of_venue;
+    }
+
+    console.log(filterCriteria);
+    const filteredUsers = await Venue.find(filterCriteria);
+    console.log(filteredUsers);
+    res.json(filteredUsers);
+  } catch (error) {
+    console.error('Error fetching venues:', error);
     res.status(500).json({ error: 'An error occurred' });
   }
 });

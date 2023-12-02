@@ -3,7 +3,8 @@ import { Link, Navigate } from 'react-router-dom';
 import { UserContext } from './components/UserContext';
 import Header from './components/Header';
 import axios from 'axios';
-import VenueCard from "./components/Venues/VenueCard";
+import VenueCard from "./components/Venues/VenueCard2";
+import ActivityCard from "./components/Activites/ActivityCard";
 
 export default function VenueDashboard() {
   //const { user, updateUser } = useContext(UserContext);
@@ -18,6 +19,9 @@ export default function VenueDashboard() {
   const [lastName, setLastName] = useState(user.lname);
   const [phoneNumber, setPhoneNumber] = useState(user?.phoneNumber);
   const [location, setLocation] = useState(user?.location);
+
+  const [showActivites, setShowActivites] = useState(false);
+  const [userActivites, setUserActivites] = useState([]);
 
   const [searchResult, setSearchResult] = useState([]);
   const [key, setKey] = useState("");
@@ -48,6 +52,20 @@ export default function VenueDashboard() {
 
   const handleCloseModal = () => {
       setModalOpen(false);
+  };
+  const handleShowActivites = () => {
+    if (user) {
+        axios
+        .get(`http://localhost:5001/useractivites/${user._id}`)
+        .then((response) => {
+            setUserActivites(response.data);
+        })
+        .catch((error) => {
+            console.error('Error fetching user venues:', error);
+        });
+    }
+
+    setShowActivites(true);
   };
   const handleSaveChanges = async () => {
       const updatedData = {
@@ -132,6 +150,7 @@ export default function VenueDashboard() {
                     </div>
                 </div>
         </div>
+
         <div className="padding">
           <div className="card">
             <div className="card-body little-profile">
@@ -162,7 +181,38 @@ export default function VenueDashboard() {
             </div>
           </div>
         </div>
+
+
+        <div className="padding">
+            <div className="card">
+                <div className="card-body little-profile">
+                    <h3 className="m-b-0" title="All previous bookings come here">Want to be be an Activity Owner?</h3>
+                    <div className="profile-buttons">
+                        <button onClick={handleShowActivites}>My Activities</button>
+                        <Link to="/addactivity">
+                        <div className="add-venue-button" title="Add Venue">
+                            <span>+</span>
+                        </div>
+                        </Link>
+                    </div>
+                    {showActivites && (
+                        <>
+                        {userActivites.length === 0 ? (
+                            <p>No activities found</p>
+                        ) : (
+                            <div className="venue-cards">
+                            {userActivites.map((activites) => (
+                                <ActivityCard key={activites._id} venue={activites} />
+                            ))}
+                            </div>
+                        )}
+                        </>
+                    )}
+                </div>
+            </div>
         </div>
+
+      </div>
     </div>
   );
 }

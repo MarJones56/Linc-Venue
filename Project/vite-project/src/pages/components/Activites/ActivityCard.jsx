@@ -1,9 +1,15 @@
 import React from 'react';
 import './ActivityCard.css';
 
-const ActivityCard = ({ venue }) => {
+const ActivityCard = ({ venue, onClick }) => {
+  const handleCardClick = () => {
+    if (onClick){
+      onClick(venue);
+    }
+  };
+  
   return (
-    <div key={venue._id} className="venue-card">
+    <div key={venue._id} className="venue-card" onClick={handleCardClick}>
       <div className="venue-header">
         <h4>{venue.name}</h4>
         <p>{venue.info}</p>

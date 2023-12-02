@@ -14,7 +14,7 @@ function Header() {
             <Link to="/"><img src='./images/logo.JPG'></img></Link>
             <div className="header-text">
 
-            <Link to="/UserFilter" >Filter</Link>&emsp;
+            <Link to="/UserFilter" >Search</Link>&emsp;
 
             {user ? (
                 <>
