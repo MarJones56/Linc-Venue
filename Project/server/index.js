@@ -39,7 +39,7 @@ app.use(helmet());
 app.use(morgan("common"));
 
 //app.use('/auth', require('./routes/auth'))
-app.use(require('./routes/auth'))
+app.use('/auth', require('./routes/auth'))
 app.use(require('./routes/venueOwn'))
 app.use(require('./routes/filter'))
 app.use(require('./routes/activity'))

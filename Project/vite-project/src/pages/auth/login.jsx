@@ -22,7 +22,7 @@ function Login() {
     const googleprovider = new GoogleAuthProvider();
 
     const socialLogin = (email) =>{
-        axios.post("http://localhost:5001/login",{email,password},)
+        axios.post("http://localhost:5001/auth/login",{email,password},)
     .then(res=>{
         if(res.status === 200){
             //localStorage.setItem('user', JSON.stringify(res.data))
@@ -48,7 +48,7 @@ function Login() {
                 console.log(result);
                 console.log(email);
                 try{
-                    const userResult = await axios.post("http://localhost:5001/Glogin/"+ email);
+                    const userResult = await axios.post("http://localhost:5001/auth/Glogin/"+ email);
                     console.log(userResult);
                     
                     if (userResult.status===200){
@@ -89,7 +89,7 @@ function Login() {
 
   const handleClick = (e) => {
     e.preventDefault()
-    axios.post("http://localhost:5001/login",{email,password},)
+    axios.post("http://localhost:5001/auth/login",{email,password},)
 
     .then(res=>{
         if(res.status === 200){
