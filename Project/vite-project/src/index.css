@@ -1,0 +1,682 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #FFF;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  font-weight: 500;
+  color: #92d14f;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #92d14f;
+}
+
+body {
+  margin: 0;
+  /* display: flex; */
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* Button styling */
+.button {
+  margin-bottom: 25px;
+  padding: 7px 30px;
+  margin-right: 15px;
+  outline: none;
+  border: 1px solid #92d14f;
+  cursor: pointer;
+  color: #92d14f;
+  background: transparent;
+  border-radius: 8px;
+  display: center; 
+}
+
+.button-center{
+  text-align: center;
+}
+.main-btn{
+  background: linear-gradient(#92d14f, #7cc42f);
+  box-shadow: 0 2px 15px rgba(48, 85, 1, 0.26);
+  color: #fff;
+  width: 300px;
+  transition-duration: .75s;
+}
+
+.main-btn:hover{
+  background: #FFF;
+  color: #92d14f
+}
+
+.secondary-btn{
+  background: #FFF;
+  width: 300px;
+}
+.button:hover {
+  border-color: #242424;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* textbox styling */
+#roundedTB{
+  border-radius: 8px;
+}
+
+/* radio button styling */
+section {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+input[type="radio"] {
+  height: 1.2rem;
+  width: 1.2rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  display: inline-block;
+  place-content: center;
+}
+
+
+#accent{
+  margin-left: 5px;
+  accent-color: #000000;
+  background-color: #fff;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #FFF;
+    background-color: #242424;
+  }
+  a:hover {
+    color: #365f0b;
+  }
+
+  body {
+    background-color: #ffffff
+}
+
+
+/* profile styling */
+
+.padding {
+    padding: 3rem !important;
+    margin-left: 200px
+}
+
+.card-img-top{
+    height:300px;
+}
+
+.card-no-border .card {
+    border-color: #d7dfe3;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem
+}
+
+.card-body .profileBanner{
+  height: 250px;
+  width: 100% - 250px;
+  position: relative;
+}
+
+.card-body .profilePic{
+  position: absolute;
+}
+
+.pro-img {
+    margin-top: -80px;
+    margin-bottom: 20px;
+    position: absolute;
+}
+
+.little-profile .pro-img img {
+    width: 128px;
+    height: 128px;
+    -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 100%
+}
+
+html body .m-b-0 {
+    margin-bottom: 0px
+}
+
+h3 {
+    line-height: 30px;
+    font-size: 21px
+}
+
+.btn-rounded.btn-md {
+    padding: 12px 35px;
+    font-size: 16px
+}
+
+html body .m-t-10 {
+    margin-top: 10px
+}
+
+.btn-primary,
+.btn-primary.disabled {
+    background: #92d14f;
+    border: 1px solid #92d14f;
+    -webkit-box-shadow: 0 2px 2px 0 rgba(116, 96, 238, 0.14), 0 3px 1px -2px rgba(116, 96, 238, 0.2), 0 1px 5px 0 rgba(116, 96, 238, 0.12);
+    box-shadow: 0 2px 2px 0 rgba(116, 96, 238, 0.14), 0 3px 1px -2px rgba(116, 96, 238, 0.2), 0 1px 5px 0 rgba(116, 96, 238, 0.12);
+    -webkit-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    transition: 0.2s ease-in
+}
+
+.btn-rounded {
+    border-radius: 60px;
+    padding: 7px 18px
+}
+
+.m-t-20 {
+    margin-top: 20px
+}
+
+.text-center {
+    text-align: center !important
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #616363;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: 400
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem
+}
+}
+
+.home-page {
+  background: linear-gradient(to bottom, rgb(147, 177, 221), rgb(146, 214, 146));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.banner {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1200px; /* Set a maximum width for the banner */
+  width: 100%; /* Take the full width of the container */
+}
+
+.left-banner h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: rgb(255, 255, 255);
+}
+
+.left-banner h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: rgb(255, 255, 255);
+}
+
+.left-banner p {
+  font-size: 25px;
+  margin-bottom: 25px;
+  color: #f6f6f6;
+}
+
+.left-banner img {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+.left-banner {
+  flex-basis: 45%;
+}
+.right-banner{
+  flex-basis: 50%;
+}
+
+.right-banner img{
+  width: 100%;
+}
+
+/* .left-banner{
+  margin-left: 10px;
+}
+
+.left-banner h1{
+  font-size: 50px;
+}
+
+.left-banner h3{
+  font-size: 30px;
+}
+
+.left-banner p{
+  font-size: 25px;
+  margin: 25px 0;
+  color:#f6f6f6;
+} */
+
+ul{
+  flex: 1;
+  text-align: right;
+}
+
+ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 0 25px;
+}
+
+ul li a{
+  text-decoration: none;
+  color: #000;
+  padding: 0 10px;
+  position: relative;
+}
+
+ul li a::after{
+  content: '';
+  width: 0;
+  height: 10px;
+  background-color: #92d14f;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -55px;
+  transition: 0.5s;
+}
+
+ul li a:hover::after{
+  width: 100px;
+}
+
+.navbar-icons img{
+  height: 25px;
+  margin-left: 40px;
+  cursor: pointer;
+}
+
+.navbar-icons{
+  margin-left: 40px;
+}
+
+/* .banner{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /*background: linear-gradient(to right, #6f9ee8, #80e489);
+  *//*margin-top: 80px;*//*
+} */
+
+.header{
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  background-color: #FFF;
+}
+
+.header img{
+  justify-content: start;
+  width: 150px;
+}
+
+.header .header-text{
+  margin-right: 0;
+  margin-left: auto;
+  margin-top: 50px;
+}
+
+.main  {
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  grid-gap: 4px;
+  padding: 4px;
+  height: 100%;
+  flex-flow: column;
+}
+
+.main  .filterPages {
+  border: 1px solid black;
+  grid-column: 1/3;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.main .filterPages h2 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.main .filter-buttons {
+  flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+  gap: 8px; /* Adjust the gap between items */
+  justify-content: space-between; /* Distribute items along the main axis */
+  align-items: center; /* Align items along the cross axis */
+  padding: 8px; /* Add padding to the container */
+}
+
+.main .filters h2,
+.main .searchResults h2 {
+  text-align: center;
+}
+.main .filter-category {
+  margin-bottom: 50px; /* Add margin between each filter category */
+}
+
+.main  .searchResults {
+  border: 1px solid black;
+  
+}
+
+/* Add this to your existing CSS */
+.search-bar {
+  display: flex;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 8px;
+}
+
+.search-bar button {
+  padding: 8px 12px;
+  background-color: #87d067;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.main .filters {
+  border: 1px solid black; 
+}
+
+/*styling for messaging*/
+
+.messenger {
+  height: calc(100vh - 150px);
+  display: flex;
+}
+
+.chatMenu {
+  flex: 2;
+}
+
+.chatMenuInput {
+  width: 90%;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+.chatBox {
+  flex: 5.5;
+}
+
+.chatBoxWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  margin-right: 200px;
+}
+
+.chatBoxTop {
+  height: 100%;
+  overflow-y: scroll;
+  padding-right: 10px;
+}
+
+.chatBoxBottom {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatMessageInput {
+  width: 80%;
+  height: 90px;
+  padding: 10px;
+}
+
+.chatMenuWrapper,
+.chatBoxWrapper,
+.chatOnlineWrapper {
+  padding: 10px;
+  height: 100%;
+}
+
+.noConversationText {
+  position: absolute;
+  top: 10%;
+  font-size: 50px;
+  color: rgb(224, 220, 220);
+  cursor: default;
+}
+
+@media screen and (max-width: 768px) {
+  .chatMenu {
+    flex: 1;
+  }
+
+  .chatMenuInput {
+    display: none;
+  }
+
+  .chatBox{
+    flex: 10;
+  }
+
+}
+
+.chatSubmitBtn{
+  width: 70px;
+  height: 40px;
+  border: none;
+  border-radius: 5;
+  background-color: #7cc42f;
+  cursor: pointer;
+  color:white;
+}
+
+.noConversationText{
+
+  position: absolute;
+  top: 10%;
+  font-size: 50px;
+  color: #daecc6;
+  text-align: center;
+  cursor: default;
+
+} 
+
+dialog{
+  height: 500px;
+  width: 1000px;
+  object-position: 100%;
+  z-index: 10;
+  /*=======*/
+}
+
+dialog input{
+  width: 100%;
+}
+
+.card-body .profilepic{
+  height: 250px;
+  width: 250px;
+}
+
+/*     BENS CODE BELOW   */
+/* Center the form in the middle of the screen */
+.centered-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.add-venue-page {
+  background: linear-gradient(to bottom, rgb(62, 62, 66), rgb(197, 207, 197));
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* Center the input elements */
+.centered-input {
+  text-align: center;
+}
+
+/* Add some spacing between the inputs */
+.centered-input input {
+  margin-top: 5px;
+}
+
+.add-venue-button {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-left: 10px;
+  position: relative;
+  line-height: 1; /* Set line-height to 1 for vertical centering */
+
+  /* Set height and width to the same value for a perfect circle */
+  height: 45px; /* Adjust this value as needed */
+  width: 45px;  /* Adjust this value as needed */
+}
+
+.add-venue-button span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.add-venue-button:hover::before {
+  display: block;
+}
+
+/* Ben Venue Card CSS */
+.venue-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+}
+/*Ben Search Users buttons */
+
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style for the dropdown button */
+/* .dropdown-button {
+  background-color: #87d067;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+} */
+
+.dropdown-button {
+  background-color: #87d067;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px; /* Add rounded edges */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Add shadow */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  text-align: center;
+}
+
+.dropdown-button-option {
+  display: block;
+  width: 100%; 
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 5px;
+}
+
+.dropdown-button-option:hover {
+  background-color: #ddd;
+}
+
+.active-link {
+  text-decoration: underline;
+  color: #87d067;
+}
