@@ -32,6 +32,10 @@ function ActivityPopup({ activity, onClose }) {
         <h2>Activity Details</h2>
         <p>Name: {activity.name}</p>
         <p>Info: {activity.info}</p>
+        <p>Time: {activity.timeslot}</p>
+        <p>Address: {activity.venueAddress}</p>
+        <p>City: {activity.venueLocation.city}</p>
+        <p>State: {activity.venueLocation.state}</p>
         <p>Current Number of Attendees: {activity.num_of_users} / {activity.availability}</p>
 
         {/* Display booking status */}
@@ -39,6 +43,7 @@ function ActivityPopup({ activity, onClose }) {
 
         <button onClick={onClose}>Close</button>
         <button onClick={handleBooking}>Book</button>
+        <button>Save</button>
       </div>
     </div>
   );

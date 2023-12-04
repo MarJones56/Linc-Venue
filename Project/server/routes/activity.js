@@ -7,6 +7,7 @@ const Venue = mongoose.model('venue')
 const { book } = require("../models/bookings");
 const User = require("../models/user");
 const Booking = require('../models/bookings');
+const nodemailer = require('nodemailer');
 
 // Endpoint to fetch the list of venues so that User 
 // can add an activity that is attached to that venue
@@ -74,6 +75,26 @@ router.get('/useractivites/:userId', async (req, res) => {
   }
 });
 
+// Function to send emails
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey('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');
+
+const sendEmail = async (to, subject, html) => {
+  const msg = {
+    to,
+    from: 'benanu1zaku@gmail.com', // Use the email address associated with your SendGrid account
+    subject,
+    html,
+  };
+
+  try {
+    await sgMail.send(msg);
+    console.log('Email sent successfully');
+  } catch (error) {
+    console.error('Error sending email:', error);
+  }
+};
+
 // Endpoint for booking an activity
 router.post('/bookActivity', async (req, res) => {
     try {
@@ -122,6 +143,16 @@ router.post('/bookActivity', async (req, res) => {
         }
         const ownerEmail = owner.email;
         console.log(ownerEmail);
+
+        // Send emails to the user who booked and the activity owner
+        const userSubject = 'Booking Confirmation';
+        const ownerSubject = 'New Booking';
+
+        const userHtml = `<p>Thank you for booking the activity ${activity.name}.</p>`;
+        const ownerHtml = `<p>New booking for your activity ${activity.name}.</p>`;
+
+        await sendEmail(userEmail, userSubject, userHtml);
+        // await sendEmail(ownerEmail, ownerSubject, ownerHtml);
 
         return res.status(200).json({ message: 'Activity booked successfully', booking });
     } catch (error) {
