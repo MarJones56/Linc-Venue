@@ -77,7 +77,7 @@ router.get('/useractivites/:userId', async (req, res) => {
 
 // Function to send emails
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 const sendEmail = async (to, subject, html) => {
   const msg = {
@@ -152,7 +152,7 @@ router.post('/bookActivity', async (req, res) => {
         const ownerHtml = `<p>New booking for your activity ${activity.name}.</p>`;
 
         await sendEmail(userEmail, userSubject, userHtml);
-        // await sendEmail(ownerEmail, ownerSubject, ownerHtml);
+        await sendEmail(ownerEmail, ownerSubject, ownerHtml);
 
         return res.status(200).json({ message: 'Activity booked successfully', booking });
     } catch (error) {

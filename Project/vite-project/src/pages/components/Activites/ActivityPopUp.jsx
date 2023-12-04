@@ -16,8 +16,8 @@ function ActivityPopup({ activity, onClose }) {
         if (res.data.error) {
           alert(res.data.error);
         } else {
-          console.log("Sucess Booked Activity");
-          setBookingStatus('Booking successful! Sending Email Notification');
+          console.log("Sucess Registered for Activity");
+          setBookingStatus('Registering successful! Sending Email Notification');
         }
       })
       .catch((error) => {
@@ -42,7 +42,7 @@ function ActivityPopup({ activity, onClose }) {
         {bookingStatus && <p>{bookingStatus}</p>}
 
         <button onClick={onClose}>Close</button>
-        <button onClick={handleBooking}>Book</button>
+        <button onClick={handleBooking}>Register</button>
         <button>Save</button>
       </div>
     </div>
