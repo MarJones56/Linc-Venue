@@ -34,9 +34,6 @@ const bookingSchema = new mongoose.Schema({
     venueName:{
         type:String
     },
-    court: {
-        type:String
-    },
     time: {
         type:String
     },
@@ -47,5 +44,3 @@ const bookingSchema = new mongoose.Schema({
 
 const book = mongoose.model("bookings",bookingSchema)
 module.exports = book;
-
-// module.exports.book =  book;

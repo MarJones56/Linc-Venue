@@ -5,6 +5,8 @@ const mongoose = require('mongoose')
 const Activity = mongoose.model('Activity')
 const Venue = mongoose.model('venue')
 const { book } = require("../models/bookings");
+const User = require("../models/user");
+const Booking = require('../models/bookings');
 
 // Endpoint to fetch the list of venues so that User 
 // can add an activity that is attached to that venue
@@ -23,7 +25,7 @@ router.get('/getallvenuesforselect', async (req, res) => {
 
 router.post("/addActivity", (req, res)=>{
     const {name, venueid ,info,timeslot,availability,chargeable, venueLocation,venueAddress, current_user_id} = req.body
-    if(!name || !info || !timeslot || !availability || ! chargeable){
+    if(!name || !info || !timeslot || !availability){
         return res.send({"error":"please enter all the details"})
     }
     Venue.find({_id: venueid})
@@ -58,15 +60,11 @@ router.post("/addActivity", (req, res)=>{
     })
 })
 
-
-
 // Endpoint to get activites for a specific user
 router.get('/useractivites/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
     const userIdObjectId = new mongoose.Types.ObjectId(userId);
-    // console.log(userIdObjectId);
-    // Assuming ownerId is a String, change it based on your actual data type
     const userVenues = await Activity.find({ current_user_id: userIdObjectId });
     console.log(userVenues);
     res.json(userVenues);
@@ -75,6 +73,64 @@ router.get('/useractivites/:userId', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+// Endpoint for booking an activity
+router.post('/bookActivity', async (req, res) => {
+    try {
+        const { activityId, userId } = req.body;
+        const activity = await Activity.findById(activityId);
+
+        if (!activity) {
+            return res.status(404).json({ message: 'Activity not found' });
+        }
+
+        // Check if the activity has reached its capacity
+        if (activity.num_of_users >= activity.availability) {
+            return res.status(400).json({ message: 'Activity has reached its capacity' });
+        }
+
+        // Update the activity's num_of_users and save
+        activity.num_of_users += 1;
+        await activity.save();
+
+        // Create a new booking document
+        const booking = new Booking({
+            uid: userId,
+            venueId: activity.venueid,
+            venueName: activity.venueName,
+            activityName: activity.name,
+            customerId: userId,
+            activityId: activityId,
+            bookingDate: new Date(),
+            venueName: activity.venueName,
+            time: activity.timeslot,
+            payment_status: 'Pending',
+        });
+        await booking.save();
+
+        // Retrieve user email using userId
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const userEmail = user.email;
+        console.log(userEmail);
+        // Retrieve owner email using current_user_id
+        const owner = await User.findById(activity.current_user_id);
+        if (!owner) {
+            return res.status(404).json({ message: 'Activity owner not found' });
+        }
+        const ownerEmail = owner.email;
+        console.log(ownerEmail);
+
+        return res.status(200).json({ message: 'Activity booked successfully', booking });
+    } catch (error) {
+        console.error('Error booking activity:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
 
 router.delete("/delete/:activityid", (req, res) => {
     Activity.findByIdAndDelete({_id:req.params.activityid})
@@ -103,16 +159,6 @@ router.get("/", (req, res) => {
         console.log(err)
     })
 })
-
-// router.get("/:activityid", (req,res) => {
-//     Activity.find({_id:req.params.activityid})
-//     .then((activity) => {
-//         if (!activity){
-//             return res.status(200).json({"error":"non existing activity"})
-//         }
-//         return res.status(200).json({"activity":activity})
-//     })
-// })
 
 
 module.exports = router

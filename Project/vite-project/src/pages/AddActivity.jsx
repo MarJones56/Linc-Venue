@@ -76,6 +76,7 @@ export default function AddActivity() {
   const handleSubmit = (e) => {
     e.preventDefault()
 
+    console.log(chargeable);
     if (!activityName || !activityInfo || !timing.length === 0 || !availability || !selectedVenue) {
       togglePopup();
       return;

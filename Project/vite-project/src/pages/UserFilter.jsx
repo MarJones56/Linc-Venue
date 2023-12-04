@@ -10,7 +10,7 @@ function UserFilter(){
     const navigate = useNavigate();
     const routelocation = useLocation();
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6;
+    const itemsPerPage = 5;
 
     const handleUserFilter = async (category, value) => {
         let filterCriteria = {};
@@ -35,11 +35,7 @@ function UserFilter(){
     };
 
     const handleShowAllUsers = async () => {
-        handleUserFilter('gender', ''); // Example: Set to an empty value for all users
-    };
-
-    const handleUserClick = (userId) => {
-        navigate(`/user/${userId}`);
+        handleUserFilter('gender', '');
     };
 
     // Pagination

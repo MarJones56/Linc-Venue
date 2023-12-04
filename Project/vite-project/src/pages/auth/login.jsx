@@ -15,6 +15,7 @@ function Login() {
     localStorage.setItem('test', 'test')
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate()
     //const { isFetching, dispatch } = useContext(AuthContext);
     axios.defaults.withCredentials = true;
@@ -28,9 +29,6 @@ function Login() {
             //localStorage.setItem('user', JSON.stringify(res.data))
             console.log(res.data.role);
                 console.log(res.data);
-                // console.log(res.data._id);
-                //setUser(res.data);
-                // console.log(res.data);
                 localStorage.setItem('user', JSON.stringify(res.data))
                 navigate('/Dashboard')
             
@@ -50,23 +48,27 @@ function Login() {
                 try{
                     const userResult = await axios.post("http://localhost:5001/auth/Glogin/"+ email);
                     console.log(userResult);
-                    
-                    if (userResult.status===200){
-                        // localStorage.setItem('user', JSON.stringify(userResult.data))
-                        console.log(userResult.data);
-                        if(userResult.data.role==="Venue Owner"){
-                            console.log(userResult.data);
-                            console.log(userResult.data._id);
-                            //setUser(res.data); //user2
-                            localStorage.setItem('user', JSON.stringify(userResult.data))
+                    if(res.status === 200){
+                        console.log(res.data.role);
+                        if(res.data.role==="Venue Owner"){
+                            console.log(res.data);
+                            console.log(res.data._id);
+                            localStorage.setItem('user', JSON.stringify(res.data))
                             navigate('/venuedashboard')
-                        }else{
-                            console.log(userResult.data);
-                            console.log(userResult.data._id);
-                            //setUser(res.data);
-                            console.log(userResult.data);
-                            localStorage.setItem('user', JSON.stringify(userResult.data))
+                        }else if (res.data.role==="User"){
+                            console.log(res.data);
+                            console.log(res.data._id);
+                            console.log(res.data);
+                            localStorage.setItem('user', JSON.stringify(res.data))
                             navigate('/Dashboard')
+                        } else{
+                            setErrorMessage('Password Incorrect');
+                            // Clear the error message after a certain time if needed
+                            setTimeout(() => {
+                                setErrorMessage('');
+                            }, 1000);
+                            console.log("incorrect password Ben");
+                            navigate('/login');
                         }
                     }
                     
@@ -93,21 +95,26 @@ function Login() {
 
     .then(res=>{
         if(res.status === 200){
-            //localStorage.setItem('user', JSON.stringify(res.data))
             console.log(res.data.role);
             if(res.data.role==="Venue Owner"){
                 console.log(res.data);
                 console.log(res.data._id);
-                //setUser(res.data); //user2
                 localStorage.setItem('user', JSON.stringify(res.data))
                 navigate('/venuedashboard')
-            }else{
+            }else if (res.data.role==="User"){
                 console.log(res.data);
                 console.log(res.data._id);
-                //setUser(res.data);
                 console.log(res.data);
                 localStorage.setItem('user', JSON.stringify(res.data))
                 navigate('/Dashboard')
+            } else{
+                setErrorMessage('Password Incorrect');
+                // Clear the error message after a certain time if needed
+                setTimeout(() => {
+                    setErrorMessage('');
+                }, 1000);
+                console.log("incorrect password Ben");
+                navigate('/login');
             }
         }
     }).catch(err=>console.log(err))
@@ -152,6 +159,11 @@ function Login() {
                             onChange={(e)=> setPassword(e.target.value)}
                         /> 
                     </div>
+                    {errorMessage && (
+                        <div className="alert alert-danger" role="alert">
+                            {errorMessage}
+                        </div>
+                    )}
 
 
                     <Link to="/forgot" >

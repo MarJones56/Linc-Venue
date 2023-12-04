@@ -36,8 +36,12 @@ const activitySchema = new mongoose.Schema({
     },
     current_user_id: {
       type: String,
-      required: true
-  },
+      required: true,
+    },
+    num_of_users: {
+      type: Number,
+      default: 0, // Default value is 0
+    },
 })
 const AcitivityModel = mongoose.model("Activity",activitySchema)
 module.exports = AcitivityModel

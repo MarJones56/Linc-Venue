@@ -3,8 +3,8 @@ import axios from 'axios';
 import Header from "./components/Header";
 import { Link, Navigate } from 'react-router-dom';
 import ActivityCard from "./components/Activites/ActivityCard";
-export default function Dashboard() {
 
+export default function Dashboard() {
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user);
     if (!user) {

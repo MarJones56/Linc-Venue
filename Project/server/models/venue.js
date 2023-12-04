@@ -37,6 +37,10 @@ const VenueSchema = new mongoose.Schema({
       type: String,
       default: "https://www.montclairartmuseum.org/sites/default/files/styles/fp_widescreen_768x432_/public/2023-10/MAM_0029%20copy.jpg?itok=HOtUXdE8"
     },
+    num_of_users: {
+      type: Number,
+      default: 0, 
+    },
 });
 
 const VenueModel = mongoose.model('venue', VenueSchema);
