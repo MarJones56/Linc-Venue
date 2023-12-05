@@ -217,7 +217,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: #455a64;
+    color: #616363;
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-weight: 400
 }
@@ -228,7 +228,51 @@ p {
 }
 }
 
-.left-banner, .right-banner{
+.home-page {
+  background: linear-gradient(to bottom, rgb(147, 177, 221), rgb(146, 214, 146));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.banner {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1200px; /* Set a maximum width for the banner */
+  width: 100%; /* Take the full width of the container */
+}
+
+.left-banner h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: rgb(255, 255, 255);
+}
+
+.left-banner h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: rgb(255, 255, 255);
+}
+
+.left-banner p {
+  font-size: 25px;
+  margin-bottom: 25px;
+  color: #f6f6f6;
+}
+
+.left-banner img {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+.left-banner {
+  flex-basis: 45%;
+}
+.right-banner{
   flex-basis: 50%;
 }
 
@@ -236,7 +280,7 @@ p {
   width: 100%;
 }
 
-.left-banner{
+/* .left-banner{
   margin-left: 10px;
 }
 
@@ -251,8 +295,8 @@ p {
 .left-banner p{
   font-size: 25px;
   margin: 25px 0;
-  color:#92d14f;
-}
+  color:#f6f6f6;
+} */
 
 ul{
   flex: 1;
@@ -298,10 +342,13 @@ ul li a:hover::after{
   margin-left: 40px;
 }
 
-.banner{
+/* .banner{
   display: flex;
-  margin-top: 80px;
-}
+  justify-content: space-between;
+  align-items: center;
+  /*background: linear-gradient(to right, #6f9ee8, #80e489);
+  *//*margin-top: 80px;*//*
+} */
 
 .header{
   position: sticky;
@@ -309,7 +356,6 @@ ul li a:hover::after{
   z-index: 1;
   display: flex;
   background-color: #FFF;
-  margin-right: 20px;
 }
 
 .header img{
@@ -345,9 +391,46 @@ ul li a:hover::after{
   margin-right: 20px;
 }
 
+.main .filter-buttons {
+  flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+  gap: 8px; /* Adjust the gap between items */
+  justify-content: space-between; /* Distribute items along the main axis */
+  align-items: center; /* Align items along the cross axis */
+  padding: 8px; /* Add padding to the container */
+}
+
+.main .filters h2,
+.main .searchResults h2 {
+  text-align: center;
+}
+.main .filter-category {
+  margin-bottom: 50px; /* Add margin between each filter category */
+}
+
 .main  .searchResults {
   border: 1px solid black;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line if there's not enough space */
+  justify-content: center; /* Center the cards horizontally */
+  align-items: center; /* Center the cards vertically */
   
+}
+
+/* Add this to your existing CSS */
+.search-bar {
+  display: flex;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 8px;
+}
+
+.search-bar button {
+  padding: 8px 12px;
+  background-color: #87d067;
+  color: #fff;
+  border: none;
+  cursor: pointer;
 }
 
 .main .filters {
@@ -459,9 +542,7 @@ dialog{
   width: 1000px;
   object-position: 100%;
   z-index: 10;
-  =======
-}
-
+  /*=======*/
 }
 
 dialog input{
@@ -557,15 +638,24 @@ dialog input{
 }
 
 /* Style for the dropdown button */
-.dropdown-button {
-  background-color: #61c7a0;
+/* .dropdown-button {
+  background-color: #87d067;
   color: #fff;
   padding: 10px;
   border: none;
   cursor: pointer;
+} */
+
+.dropdown-button {
+  background-color: #87d067;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px; /* Add rounded edges */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Add shadow */
 }
 
-/* Style for the dropdown content (hidden by default) */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -573,17 +663,91 @@ dialog input{
   min-width: 160px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
+  text-align: center;
+
+  /* Add the following styles for scrollbar */
+  max-height: 200px; /* Set your desired maximum height */
+  overflow-y: auto;
 }
 
-/* Style for the dropdown buttons */
 .dropdown-button-option {
   display: block;
+  width: 100%; 
   padding: 10px;
   text-decoration: none;
   color: #333;
+  border-radius: 5px;
 }
 
-/* Style for the dropdown buttons on hover */
 .dropdown-button-option:hover {
   background-color: #ddd;
+}
+
+.active-link {
+  text-decoration: underline;
+  color: #87d067;
+}
+/* Style for the profile page */
+.card{
+  background-color: 	#F5F5F5;
+  border-radius: 25px;
+  padding: 1%;
+  margin-bottom: 1%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.profileintro{
+  float: left; 
+  padding-left: 1%;
+}
+
+.profilepic{
+  float: left; 
+  margin-top: -90px;
+  border-style: solid;
+  border-color: #F8F8FF;
+}
+
+.profileBanner{
+  width: 100%; 
+  height: 100%; 
+  z-index: -1; 
+  float: left;
+}
+
+
+.profilebutton{
+  border-radius: 25px;
+  background-color: #F8F8FF;
+  color: #000;
+}
+
+.profilebutton:hover{
+  transition: transform 1s; 
+  transform: scale(1.25);
+}
+
+.profilebutton:not(:hover){
+  transition: transform 1s; 
+  transform: scale(1);
+}
+
+.editProfileDialog{
+  top: 25%;
+  position: fixed;
+}
+
+.editprofilebutton{
+  margin-right: 1%;
+  margin-top: 1%;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.myactivitiesbutton{
+  background: radial-gradient(circle at -8.9% 51.2%, rgb(255, 124, 0) 0%, rgb(255, 124, 0) 15.9%, rgb(255, 163, 77) 15.9%, rgb(255, 163, 77) 24.4%, rgb(19, 30, 37) 24.5%, rgb(19, 30, 37) 66%);
+  text-align: center;
+  font-weight: bold;
+  border-radius: 10px;
 }
