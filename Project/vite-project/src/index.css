@@ -687,3 +687,41 @@ dialog input{
   text-decoration: underline;
   color: #87d067;
 }
+
+.startConvoBtn{
+  width: 90%;
+  background: linear-gradient(#92d14f, #7cc42f);
+  box-shadow: 0 2px 15px rgba(48, 85, 1, 0.26);
+  color: #fff;
+  width: 90%;
+  transition-duration: .75s;
+  border-radius: 8px;
+}
+
+.startConvoBtn:hover{
+  background: #FFF;
+  color: #92d14f
+}
+.feedbackHolder{
+  display: flex;
+}
+
+.feedback{
+  flex: 1;
+  justify-content: start;
+}
+
+.feedback p{
+  color: gray;
+  font-style: italic;
+}
+
+.deliveryStatus{
+  margin-left: auto; 
+  margin-right: 0;
+}
+
+.deliveryStatus p{
+  color: gray;
+  font-style: italic;
+}

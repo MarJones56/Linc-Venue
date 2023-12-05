@@ -21,5 +21,16 @@
 
 .conversationName{
     font-weight: 500;
+}
 
+.onlineText{
+    margin-left: 10px;
+    color: rgb(10, 206, 10);
+    font-weight: 500;
+}
+
+.offlineText{
+    margin-left: 10px;
+    color: red;
+    font-weight: 500;
 }
