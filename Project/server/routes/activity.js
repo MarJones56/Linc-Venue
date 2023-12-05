@@ -25,7 +25,6 @@ router.get('/getallvenuesforselect', async (req, res) => {
 });
 
 
-
 router.post("/addActivity", (req, res)=>{
     const {name, venueid ,info,timeslot,availability,chargeable, venueLocation,venueAddress, current_user_id} = req.body
     if(!name || !info || !timeslot || !availability){

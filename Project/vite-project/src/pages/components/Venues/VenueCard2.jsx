@@ -1,6 +1,6 @@
 
 import React from 'react';
-import './VenueCard.css';
+import './VenueCard2.css';
 
 const VenueCard = ({ venue }) => {
   return (
@@ -29,6 +29,7 @@ const VenueCard = ({ venue }) => {
           alt={`Image for ${venue.name}`}
         />
       </div>
+      <button>Close</button>
     </div>
   );
 };

@@ -21,6 +21,9 @@ const UserCard = ({ user }) => {
               <strong>Email:</strong> {email}
             </p>
             <p>
+              <strong>Username:</strong> {user.username}
+            </p>
+            <p>
               <strong>Role:</strong> {user.role}
             </p>
           </div>
