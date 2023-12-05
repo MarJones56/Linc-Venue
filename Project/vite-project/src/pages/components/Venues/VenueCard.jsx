@@ -38,9 +38,15 @@
 import React from 'react';
 import './VenueCard.css';
 
-const VenueCard = ({ venue }) => {
+const VenueCard = ({ venue, onClick }) => {
+  const handleCardClick = () => {
+    if (onClick){
+      onClick(venue);
+    }
+  };
+
   return (
-    <div key={venue._id} className="venue-card">
+    <div key={venue._id} className="venue-card" onClick={handleCardClick}>
       <div className="venue-content">
         <div className="venue-info">
           <div className="venue-header">

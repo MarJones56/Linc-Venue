@@ -7,7 +7,9 @@ const Venue = mongoose.model('venue')
 const { book } = require("../models/bookings");
 const User = require("../models/user");
 const Booking = require('../models/bookings');
+const VenueModel = require('../models/venue');
 const nodemailer = require('nodemailer');
+const VenueBooking = require('../models/venuebooking');
 
 // Endpoint to fetch the list of venues so that User 
 // can add an activity that is attached to that venue
@@ -76,13 +78,14 @@ router.get('/useractivites/:userId', async (req, res) => {
 });
 
 // Function to send emails
+require('dotenv').config();
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendEmail = async (to, subject, html) => {
   const msg = {
     to,
-    from: 'benanu1zaku@gmail.com', // Use the email address associated with your SendGrid account
+    from: 'benanu1zaku@gmail.com',
     subject,
     html,
   };
@@ -159,6 +162,69 @@ router.post('/bookActivity', async (req, res) => {
         console.error('Error booking activity:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
+});
+
+
+router.post('/bookVenue', async (req, res) => {
+  try {
+      const {venueId, userId, timeslot } = req.body;
+      const venue = await VenueModel.findById(venueId);
+      console.log(timeslot);
+      if (!venue) {
+          return res.status(404).json({ success: false, message: 'Venue not found' });
+      }
+
+      // Check if the activity has reached its capacity
+      if (venue.num_of_users >= venue.maxCap) {
+          return res.status(400).json({ success: false, message: 'Venue has reached its capacity' });
+      }
+
+      // Update the activity's num_of_users and save
+      venue.num_of_users += 1;
+      await venue.save();
+
+      // Create a new booking document
+      const booking = new VenueBooking({
+          uid: userId, //customer id
+          venueId: venue._id,
+          venueOwnerId: venue.ownerId,
+          bookingDate: new Date(),
+          venueName: venue.name,
+          time: timeslot,
+          payment_status: 'Pending',
+      });
+      await booking.save();
+
+      // Retrieve user email using userId
+      const user = await User.findById(userId);
+      if (!user) {
+          return res.status(404).json({ success: false, message: 'User not found' });
+      }
+      const userEmail = user.email;
+      console.log(userEmail);
+      // Retrieve owner email using current_user_id
+      const owner = await User.findById(venue.ownerId);
+      if (!owner) {
+          return res.status(404).json({ success: false,message: 'Venue owner not found' });
+      }
+      const ownerEmail = owner.email;
+      console.log(ownerEmail);
+
+      // Send emails to the user who booked and the activity owner
+      const userSubject = 'Booking Confirmation';
+      const ownerSubject = 'New Booking';
+
+      const userHtml = `<p>Thank you for booking the venue ${venue.name}.</p>`;
+      const ownerHtml = `<p>New booking for your venue ${venue.name}.</p>`;
+
+      await sendEmail(userEmail, userSubject, userHtml);
+      await sendEmail(ownerEmail, ownerSubject, ownerHtml);
+
+      return res.status(200).json({ success: true, message: 'Venue booked successfully', booking });
+  } catch (error) {
+      console.error('Error booking activity:', error);
+      return res.status(500).json({  success: false, message: 'Internal server error' });
+  }
 });
 
 

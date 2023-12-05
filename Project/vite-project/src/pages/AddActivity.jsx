@@ -64,7 +64,7 @@ export default function AddActivity() {
 
   const PopupMessage = () => {
     return (
-      <div className="popup">
+      <div className="popup_ben">
         <p> Oops!! FILL OUT ALL FIELDS</p>
       </div>
     );

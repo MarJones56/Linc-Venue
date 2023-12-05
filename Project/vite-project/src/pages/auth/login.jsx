@@ -10,7 +10,6 @@ import { UserContext } from "../components/UserContext";
 import {  signInWithPopup, GoogleAuthProvider,FacebookAuthProvider, signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "firebase/auth";
 import { auth } from '../../firebase';
 
-
 function Login() {
     localStorage.setItem('test', 'test')
     const [email, setEmail] = useState()

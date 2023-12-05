@@ -4,6 +4,7 @@ import axios from 'axios';
 import Header from "./components/Header"; 
 import VenueCard from "./components/Venues/VenueCard";
 import SearchIcon from '@mui/icons-material/Search';
+import VenuePopup from './components/Venues/VenuePopUp';
 
 function VenueFilter() {
   const [filteredVenues, setFilteredVenues] = useState([]);
@@ -16,6 +17,23 @@ function VenueFilter() {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
+
+  //PopUp for clicking cards
+  const [showPopup, setShowPopup] = useState(false);
+  const [selectedVenue, setSelectedVenue] = useState(null);
+
+  // Function to handle activity card click
+  const handleVenueCardClick = (venue) => {
+    console.log(venue);
+    setSelectedVenue(venue);
+    setShowPopup(true);
+  };
+
+  // Function to close the popup
+  const handleClosePopup = () => {
+    setShowPopup(false);
+    setSelectedVenue(null);
+  };
 
   const handleVenueFilter = async (category, value) => {
     let filterCriteria = {};
@@ -326,7 +344,7 @@ function VenueFilter() {
               <p>No venues found</p>
             ) : (
               filteredVenues.map((venue) => (
-                <VenueCard key={venue._id} venue={venue} />
+                <VenueCard key={venue._id} venue={venue} onClick={() => handleVenueCardClick(venue)}/>
               ))
             )}
           </div>
@@ -343,6 +361,9 @@ function VenueFilter() {
               Next Page
             </button>
           </div>
+          {showPopup && selectedVenue && (
+            <VenuePopup venue={selectedVenue} onClose={handleClosePopup} />
+          )}
         </div>
       </div>
     </div>

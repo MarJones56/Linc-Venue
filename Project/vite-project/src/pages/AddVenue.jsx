@@ -16,13 +16,11 @@ import Header from './components/Header';
 import moment from 'moment';
 import 'moment-timezone';
 
-//import { UserContext } from './components/UserContext';
-
 export default function AddVenue() {
 
   const PopupMessage = () => {
     return (
-      <div className="popup">
+      <div className="popup_ben">
         <p> Oops!! FILL OUT ALL FIELDS</p>
       </div>
     );
