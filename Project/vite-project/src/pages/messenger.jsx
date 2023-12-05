@@ -127,7 +127,7 @@ function Messenger(){
             if (searchRes.status == 200){
                 if(searchRes.data == null){
                     console.log("No User with that Username");
-                    searchUsername.current.showCustomValidity("No User with that Username")
+                    //searchUsername.current.showCustomValidity("No User with that Username")
                 } else {
                     const searchedUserID = searchRes.data._id;
                     const members = [user._id, searchedUserID];
