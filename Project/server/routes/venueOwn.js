@@ -62,4 +62,22 @@ router.get('/userVenues/:userId', async (req, res) => {
   }
 });
 
+router.delete('/deleteVenue/:id', async (req, res) => {
+  const venueId = req.params.id;
+
+  try {
+    // Find the venue by ID and remove it
+    const deletedVenue = await VenueModel.findByIdAndRemove(venueId);
+
+    if (!deletedVenue) {
+      return res.status(404).json({ message: 'Venue not found' });
+    }
+
+    return res.status(200).json({ message: 'Venue deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting venue:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 module.exports = router;
