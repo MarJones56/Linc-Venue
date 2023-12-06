@@ -47,18 +47,18 @@ function Login() {
                 try{
                     const userResult = await axios.post("http://localhost:5001/auth/Glogin/"+ email);
                     console.log(userResult);
-                    if(res.status === 200){
-                        console.log(res.data.role);
-                        if(res.data.role==="Venue Owner"){
-                            console.log(res.data);
-                            console.log(res.data._id);
-                            localStorage.setItem('user', JSON.stringify(res.data))
+                    if(userResult.status === 200){
+                        console.log(userResult.role);
+                        if(userResult.data.role==="Venue Owner"){
+                            console.log(userResult.data);
+                            console.log(userResult.data._id);
+                            localStorage.setItem('user', JSON.stringify(userResult.data))
                             navigate('/venuedashboard')
-                        }else if (res.data.role==="User"){
-                            console.log(res.data);
-                            console.log(res.data._id);
-                            console.log(res.data);
-                            localStorage.setItem('user', JSON.stringify(res.data))
+                        }else if (userResult.data.role==="User"){
+                            console.log(userResult.data);
+                            console.log(userResult.data._id);
+                            console.log(userResult.data);
+                            localStorage.setItem('user', JSON.stringify(userResult.data))
                             navigate('/Dashboard')
                         } else{
                             setErrorMessage('Password Incorrect');
